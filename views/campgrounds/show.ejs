@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= camp.name %></title>
-</head>
-<body>
+<%- layout('layouts/boilerplate') %>
+
     <h1><%= camp.name %></h1>
     <h2><%= camp.location %></h2>
     <h3>&#8369; <%= camp.price %>.00 / night</h3>
@@ -20,5 +13,5 @@
     </p><p>
         <a href="/campgrounds">Back to All Campgrounds</a> 
     </p>
-</body>
-</html>
+
+    

@@ -1,12 +1,15 @@
 // import modules
 const express = require('express');
-const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const ejsMate = require('ejs-mate');
 
+// model or schema
 const Campground = require('./models/campground');
-const campground = require('./models/campground');
+
+// express app
+const app = express();
 
 // connect mongoose to mongodb
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
@@ -16,6 +19,9 @@ mongoose.connect('mongodb://localhost:27017/yelp-camp', {
 })
     .then(() => console.log('Database Connected!'))
     .catch(err => console.log('Mongoose Connection Error:', err));
+
+// ejs-mate
+app.engine('ejs', ejsMate);
 
 // setup EJS & views directory
 app.set('view engine', 'ejs');
@@ -33,7 +39,7 @@ app.get('/', (req, res) => {
 // Show All route
 app.get('/campgrounds', async (req, res) => {
     const campgrounds = await Campground.find({});
-    console.log(campgrounds);
+    // console.log(campgrounds);
     res.render('campgrounds/index', {campgrounds});
 });
 

@@ -26,13 +26,10 @@ const seedDB = async () => {
     await Campground.deleteMany({});
     console.log('Deleted old data in campgrounds database');
     // seeding random camps
-    for (let i = 0; i < 35; i++)
+    for (let i = 0; i < 80; i++)
     {
         let rand = Math.floor(Math.random() * 164);
         let price = 500 + Math.floor(Math.random() * 9500);
-        // console.log(`~${rand}~ ${cities[rand].city}, ${cities[rand].admin_name}`);
-        // console.log(seeder(descriptors));
-        // console.log(seeder(places));
         let camp = new Campground({
             name: `${seeder(descriptors)} ${seeder(places)}`,
             price: price,
