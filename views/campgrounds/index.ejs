@@ -4,12 +4,29 @@
     <p>
         <a href="/campgrounds/new">New Campground</a>
     </p>
-    <ul>
+    <section class="row">
+
         <% for (let camp of campgrounds) { %>
-            <li> 
-                <a href="/campgrounds/<%= camp._id %>">
-                    <%= camp.name %> 
-                </a>
-            </li>
+            <div class="card mb-3 col-md-7">
+                <div class="row g-0">
+                  <div class="col-md-6">
+                    <img class="img-fluid" src="<%= camp.image %>" alt="...">
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/campgrounds/<%= camp._id %>"><%= camp.name %></a>
+                        <sup class="text-muted">&#8369;<%= camp.price %>.00</sup>
+                      </h5>
+                      <p class="card-text">
+                        <%= camp.description %>
+                      </p>
+                      <p class="card-text"><small class="text-muted"><%= camp.location %></small></p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
         <% } %>
-    </ul>
+
+    </section>

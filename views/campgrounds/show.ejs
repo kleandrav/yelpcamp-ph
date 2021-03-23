@@ -1,17 +1,24 @@
 <%- layout('layouts/boilerplate') %>
 
-    <h1><%= camp.name %></h1>
-    <h2><%= camp.location %></h2>
-    <h3>&#8369; <%= camp.price %>.00 / night</h3>
-    <p><%= camp.description %></p>
-    
-    <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST">
-        <button>Delete</button>
-    </form>
-    <p>
-        <a href="/campgrounds/<%= camp.id %>/edit">Edit Campground</a>
-    </p><p>
-        <a href="/campgrounds">Back to All Campgrounds</a> 
-    </p>
-
-    
+<section class="row mb-5">
+    <div class="card col-sm-6 offset-3">
+        <img src="<%= camp.image %>" class="card-img-top img-fluid" alt="Image of <%= camp.name %>">
+        <div class="card-body">
+          <h1 class="card-title"><%= camp.name %></h1>
+          <p class="card-text">&#8369;<%= camp.price %>/night</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><%= camp.location %></li>
+          <li class="list-group-item"><%= camp.description %></li>
+        </ul>
+        <div class="card-body">
+            <a class="btn btn-success" href="/campgrounds/<%= camp.id %>/edit">Edit</a>
+            <form class="d-inline" action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="/campgrounds">All Campgrounds</a></li>
+        </ul>
+    </div>
+</section>

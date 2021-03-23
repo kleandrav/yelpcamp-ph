@@ -48,7 +48,7 @@ module.exports.descriptors = [
     'Maharlika',
     'Timpi',
     'Tadhana',
-    'Kaysawi'
+    'Magubat'
 ]
 
 module.exports.places = [
@@ -83,6 +83,9 @@ module.exports.places = [
     'Cliffs',
     'Shores',
     'Seas',
-    'Seaside'
+    'Seaside',
+    'Forest',
+    'Jungle',
+    'Falls'
 ]
 

@@ -1,25 +1,35 @@
 <%- layout('layouts/boilerplate') %>
 
-    <h1>Edit Campground</h1>
-    <form action="/campgrounds/<%= camp._id %>?_method=PUT" method="POST">
-        <p>
-            <label for="name">Name:</label>
-            <input type="text" name="name" value="<%= camp.name %>" />
-        </p><p>
-            <label for="name">Location:</label>
-            <input type="text" name="location" value="<%= camp.location %>" />
-        </p><p>
-            <label for="name">Price:</label>
-            <input type="number" name="price" value="<%= camp.price %>" />
-        </p><p>
-            <label for="name">Description:</label>
-            <textarea name="description" cols="30" rows="10"><%= camp.description %></textarea>
-        </p>
-        <p>
-            <button type="submit">Save</button>
-        </p>
-    </form>
-    <p>
-        <a href="/campgrounds">All Campgrounds</a>
-    </p>
+    <h1 class="text-center">Edit Campground</h1>
+    <section class="row">
+        <form class="col-6 offset-3" action="/campgrounds" method="POST">
+            <p class="mb-3">
+                <label class="form-label" for="name">Name:</label>
+                <input class="form-control" type="text" name="name" value="<%= camp.name %>" />
+            </p><p class="mb-3">
+                <label class="form-label" for="location">Location:</label>
+                <input class="form-control" type="text" name="location" value="<%= camp.location %>" />
+            </p><p class="mb-3">
+                <label class="form-label" for="image">Image URL:</label>
+                <input class="form-control" type="text" name="image" value="<%= camp.image %>" />
+            </p><p class="mb-3">
+                <label for="price">Price:</label>
+                <div class="input-group">
+                    <div class="input-group-text" id="btnGroupAddon">$</div>
+                    <input name="price" type="number" class="form-control" placeholder="0.00" aria-label="price" aria-describedby="btnGroupAddon" value="<%= camp.price %>" />
+                </div>
+            </p><p class="mb-3">
+                <label class="form-label" for="description">Description:</label>
+                <textarea class="form-control" name="description" 
+                cols="30" rows="5"><%= camp.description %></textarea>
+            </p>
+            <p class="mb-3">
+                <button class="btn btn-success" type="submit">Save</button>
+            </p>
+            <p class="my-5">
+                <a href="/campgrounds">See All Campgrounds</a>
+            </p>
+        </form>
+    </section>
+    
     

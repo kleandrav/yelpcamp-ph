@@ -1,24 +1,34 @@
 <%- layout('layouts/boilerplate') %>
 
-    <h1>Add a New Campground</h1>
-    <form action="/campgrounds" method="POST">
-        <p>
-            <label for="name">Name:</label>
-            <input type="text" name="name">
-        </p><p>
-            <label for="name">Location:</label>
-            <input type="text" name="location">
-        </p><p>
-            <label for="name">Price:</label>
-            <input type="number" name="price">
-        </p><p>
-            <label for="name">Description:</label>
-            <textarea name="description" id="" cols="30" rows="10"></textarea>
+<h1 class="text-center">Add a New Campground</h1>
+<section class="row">
+    <form class="col-6 offset-3" action="/campgrounds" method="POST">
+        <p class="mb-3">
+            <label class="form-label" for="name">Name:</label>
+            <input class="form-control" type="text" name="name">
+        </p><p class="mb-3">
+            <label class="form-label" for="location">Location:</label>
+            <input class="form-control" type="text" name="location">
+        </p><p class="mb-3">
+            <label class="form-label" for="image">Image URL:</label>
+            <input class="form-control" type="text" name="image">
+        </p><p class="mb-3">
+            <label for="price">Price:</label>
+            <div class="input-group">
+                <div class="input-group-text" id="btnGroupAddon">$</div>
+                <input name="price" type="number" class="form-control" placeholder="0.00" aria-label="price" aria-describedby="btnGroupAddon">
+            </div>
+        </p><p class="mb-3">
+            <label class="form-label" for="description">Description:</label>
+            <textarea class="form-control" name="description" cols="30" rows="5"></textarea>
         </p>
-        <p>
-            <button type="submit">Save</button>
+        <p class="mb-3">
+            <button class="btn btn-success" type="submit">Add Campground</button>
+        </p>
+        <p class="my-5">
+            <a href="/campgrounds">See All Campgrounds</a>
         </p>
     </form>
-    <p>
-        <a href="/campgrounds">All Campgrounds</a>
-    </p>
+</section>
+
+

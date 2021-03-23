@@ -29,13 +29,15 @@ const seedDB = async () => {
     for (let i = 0; i < 80; i++)
     {
         let rand = Math.floor(Math.random() * 164);
-        let price = 500 + Math.floor(Math.random() * 9500);
+        // random price between 300 to 5000 pesos
+        let price = 300 + Math.floor(Math.random() * 4701);
         let camp = new Campground({
             name: `${seeder(descriptors)} ${seeder(places)}`,
             price: price,
             description: "With more than 7,000 islands consisting of rice paddies, volcanos, mega-metropolises, world-class surf spots, and endemic wildlife, the Philippines is one of the most dazzling and diverse countries in all of Asia.",
-            location: `${cities[rand].city}, ${cities[rand].admin_name}`
-        })
+            location: `${cities[rand].city}, ${cities[rand].admin_name}`,
+            image: 'https://source.unsplash.com/collection/483251'
+        });
         await camp.save();
         console.log('Camp Saved:', camp);
     }
