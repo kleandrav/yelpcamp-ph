@@ -1,10 +1,14 @@
+// import modules
 const express = require('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
+
 const Campground = require('./models/campground');
 const campground = require('./models/campground');
 
+// connect mongoose to mongodb
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -13,26 +17,18 @@ mongoose.connect('mongodb://localhost:27017/yelp-camp', {
     .then(() => console.log('Database Connected!'))
     .catch(err => console.log('Mongoose Connection Error:', err));
 
+// setup EJS & views directory
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // parse req.body from a form POST request
 app.use(express.urlencoded({extended: true}));
+// method override for put / delete request
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
     res.render('home');
 });
-
-// app.get('/makecampground', async (req, res) => {
-//     const camp = new Campground({
-//         title: 'my 2nd backyard',
-//         description: 'really cheap camping!',
-//         price: 0,
-//         location: 'my home'
-//     });
-//     await camp.save();
-//     res.send(camp);
-// });
 
 // Show All route
 app.get('/campgrounds', async (req, res) => {
@@ -41,7 +37,7 @@ app.get('/campgrounds', async (req, res) => {
     res.render('campgrounds/index', {campgrounds});
 });
 
-// Create route
+// Create routes
 app.get('/campgrounds/new', async (req, res) => {
     res.render('campgrounds/new');
 });
@@ -59,6 +55,25 @@ app.get('/campgrounds/:id', async (req, res) => {
     const camp = await Campground.findById(req.params.id);
     // console.log(camp);
     res.render('campgrounds/show', {camp});
+});
+
+// Update routes
+app.get('/campgrounds/:id/edit', async (req, res) => {
+    const camp = await Campground.findById(req.params.id);
+    res.render(`campgrounds/edit`, {camp})
+});
+app.put('/campgrounds/:id', async (req, res) => {
+    // res.send(req.body);
+    // const camp = await Campground.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    // console.log('Updated Camp:', camp)
+    await Campground.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect(`/campgrounds/${req.params.id}`);
+});
+
+// Delete route
+app.delete('/campgrounds/:id', async (req, res) => {
+    await Campground.findByIdAndDelete(req.params.id);
+    res.redirect('/campgrounds');
 });
 
 app.listen(8080, () => {

@@ -11,8 +11,14 @@
     <h2><%= camp.location %></h2>
     <h3>&#8369; <%= camp.price %>.00 / night</h3>
     <p><%= camp.description %></p>
+    
+    <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST">
+        <button>Delete</button>
+    </form>
     <p>
-        <a href="/campgrounds">All Campgrounds</a>
+        <a href="/campgrounds/<%= camp.id %>/edit">Edit Campground</a>
+    </p><p>
+        <a href="/campgrounds">Back to All Campgrounds</a> 
     </p>
 </body>
 </html>

@@ -32,7 +32,23 @@ module.exports.descriptors = [
     'Rosas',
     'Ningning',
     'Kutitap',
-    'Narra'
+    'Narra',
+    'Mariposa',
+    'Marikit',
+    'Tiktilaok',
+    'Silakbo',
+    'Pahimakas',
+    'Sinagtala',
+    'Kayhiwaga',
+    'Higugma',
+    'Kundiman',
+    'Halakhak',
+    'Muni-muni',
+    'Takipsilim',
+    'Maharlika',
+    'Timpi',
+    'Tadhana',
+    'Kaysawi'
 ]
 
 module.exports.places = [
@@ -65,6 +81,8 @@ module.exports.places = [
     'Bayshore',
     'Sands',
     'Cliffs',
-    'Shores'
+    'Shores',
+    'Seas',
+    'Seaside'
 ]
 
