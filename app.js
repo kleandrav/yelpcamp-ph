@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
+const morgan = require('morgan');
 
 // model or schema
 const Campground = require('./models/campground');
@@ -32,6 +33,10 @@ app.use(express.urlencoded({extended: true}));
 // method override for put / delete request
 app.use(methodOverride('_method'));
 
+// Morgan
+app.use(morgan('tiny'));
+
+// Home Page
 app.get('/', (req, res) => {
     res.render('home');
 });
@@ -47,12 +52,17 @@ app.get('/campgrounds', async (req, res) => {
 app.get('/campgrounds/new', async (req, res) => {
     res.render('campgrounds/new');
 });
-app.post('/campgrounds', async (req, res) => {
-    const camp = new Campground(req.body);
-    console.log('New Camp:', camp);
-    // res.send(req.body);
-    await camp.save();
-    res.redirect(`/campgrounds/${camp._id}`);
+app.post('/campgrounds', async (req, res, next) => {
+    try {
+        const camp = new Campground(req.body);
+        console.log('New Camp:', camp);
+        // res.send(req.body);
+        await camp.save();
+        res.redirect(`/campgrounds/${camp._id}`);
+    }
+    catch (e) {
+        next(e);
+    }
 });
 
 // Show 1 route
@@ -80,6 +90,11 @@ app.put('/campgrounds/:id', async (req, res) => {
 app.delete('/campgrounds/:id', async (req, res) => {
     await Campground.findByIdAndDelete(req.params.id);
     res.redirect('/campgrounds');
+});
+
+// simple error handler
+app.use((err, req, res, next) => {
+    res.send(`oh boy somethin went wrong!`);
 });
 
 app.listen(8080, () => {
