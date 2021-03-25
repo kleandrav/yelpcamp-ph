@@ -26,7 +26,7 @@ const seedDB = async () => {
     await Campground.deleteMany({});
     console.log('Deleted old data in campgrounds database');
     // seeding random camps
-    for (let i = 0; i < 80; i++)
+    for (let i = 0; i < 50; i++)
     {
         let rand = Math.floor(Math.random() * 164);
         // random price between 300 to 5000 pesos

@@ -1,34 +1,63 @@
-<%- layout('layouts/boilerplate') %>
+<% layout('layouts/boilerplate')%>
 
-<h1 class="text-center">Add a New Campground</h1>
-<section class="row">
-    <form class="col-6 offset-3" action="/campgrounds" method="POST">
-        <p class="mb-3">
-            <label class="form-label" for="name">Name:</label>
-            <input class="form-control" type="text" name="name">
-        </p><p class="mb-3">
-            <label class="form-label" for="location">Location:</label>
-            <input class="form-control" type="text" name="location">
-        </p><p class="mb-3">
-            <label class="form-label" for="image">Image URL:</label>
-            <input class="form-control" type="text" name="image">
-        </p><p class="mb-3">
-            <label for="price">Price:</label>
-            <div class="input-group">
-                <div class="input-group-text" id="btnGroupAddon">$</div>
-                <input name="price" type="number" class="form-control" placeholder="0.00" aria-label="price" aria-describedby="btnGroupAddon">
+<h1>Add a New Campground</h1>
+
+<form action="/campgrounds" method="POST" class="row my-3 validate-form" novalidate>
+
+    <div class="col-lg-10 mb-3">
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please enter the campground's name.
+        </div>
+    </div>
+
+    <div class="col-lg-10 mb-3">
+        <label for="image" class="form-label">Image URL:</label>
+        <input type="text" class="form-control" id="image" name="image" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please enter the campground's image URL.
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-5 mb-3">
+        <label for="location" class="form-label">Location:</label>
+        <input type="text" class="form-control" id="location" name="location" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please enter the campground's location.
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-5 mb-3">
+        <label for="price" class="form-label">Price:</label>
+        <div class="input-group has-validation">
+            <span class="input-group-text" id="inputGroupPrepend">$</span>
+            <input type="number" class="form-control" id="price" name="price" aria-describedby="inputGroupPrepend" required>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+                Please enter the campground's price in numbers.
             </div>
-        </p><p class="mb-3">
-            <label class="form-label" for="description">Description:</label>
-            <textarea class="form-control" name="description" cols="30" rows="5"></textarea>
-        </p>
-        <p class="mb-3">
-            <button class="btn btn-success" type="submit">Add Campground</button>
-        </p>
-        <p class="my-5">
-            <a href="/campgrounds">See All Campgrounds</a>
-        </p>
-    </form>
-</section>
+        </div>
+    </div>
 
+    <div class="col-lg-10 mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please enter a description for this campground.
+        </div>
+    </div>
 
+    <div class="col-md-10 mb-3">
+        <button class="btn btn-success" type="submit">
+            Add Campground
+        </button>
+    </div>
+</form>
+
+<p>
+    <a href="/campgrounds">Back to All Campgrounds</a>
+</p>

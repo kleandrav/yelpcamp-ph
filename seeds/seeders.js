@@ -48,7 +48,18 @@ module.exports.descriptors = [
     'Maharlika',
     'Timpi',
     'Tadhana',
-    'Magubat'
+    'Magubat',
+    'Kokak',
+    'Sitsiritsit',
+    'Salaginto',
+    'Salagubang',
+    'Encanto',
+    'Encantada',
+    'Duwende',
+    'Mangkukulam',
+    'Manananggal',
+    'Anghel',
+    'Tsokolate'
 ]
 
 module.exports.places = [
