@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const morgan = require('morgan');
+const Joi = require('joi');
 
 // import models & utilities
 const Campground = require('./models/campground');
@@ -56,6 +57,21 @@ app.get('/campgrounds/new', async (req, res) => {
 });
 app.post('/campgrounds', catchAsync(async (req, res, next) => {
     try {
+        const joiCamp = Joi.object({
+                name: Joi.string().required(),
+                price: Joi.number().required().min(0),
+                image: Joi.string().required(),
+                location: Joi.string().required(),
+                description: Joi.string().required()
+        });
+        const {error} = joiCamp.validate(req.body);
+        if(error)
+        {
+            console.log('error:', req.body);
+            const msg = error.details.map(err => err.message).join(', ');
+            throw new ExpressError(400, msg);
+        }
+
         const camp = new Campground(req.body);
         console.log('New Camp:', camp);
         // res.send(req.body);
