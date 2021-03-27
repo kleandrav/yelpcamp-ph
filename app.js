@@ -5,12 +5,12 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const morgan = require('morgan');
-const Joi = require('joi');
 
 // import models & utilities
 const Campground = require('./models/campground');
 const ExpressError = require('./utils/ExpressError.js')
 const catchAsync = require('./utils/catchAsync.js')
+const {joiCamp} = require('./joiSchemas.js');
 
 // express app
 const app = express();
@@ -39,6 +39,21 @@ app.use(methodOverride('_method'));
 // Morgan
 app.use(morgan('tiny'));
 
+const validateByJoi = (req, res, next) => {
+    
+    const {error} = joiCamp.validate(req.body);
+    if(error)
+    {
+        console.log('error:', req.body);
+        const msg = error.details.map(err => err.message).join(', ');
+        throw new ExpressError(400, msg);
+    }
+    else
+    {
+        next();
+    }
+}
+
 // Home Page
 app.get('/', (req, res) => {
     res.render('home');
@@ -55,23 +70,8 @@ app.get('/campgrounds', catchAsync(async (req, res) => {
 app.get('/campgrounds/new', async (req, res) => {
     res.render('campgrounds/new');
 });
-app.post('/campgrounds', catchAsync(async (req, res, next) => {
-    try {
-        const joiCamp = Joi.object({
-                name: Joi.string().required(),
-                price: Joi.number().required().min(0),
-                image: Joi.string().required(),
-                location: Joi.string().required(),
-                description: Joi.string().required()
-        });
-        const {error} = joiCamp.validate(req.body);
-        if(error)
-        {
-            console.log('error:', req.body);
-            const msg = error.details.map(err => err.message).join(', ');
-            throw new ExpressError(400, msg);
-        }
-
+app.post('/campgrounds', validateByJoi, catchAsync(async (req, res, next) => {
+    try {      
         const camp = new Campground(req.body);
         console.log('New Camp:', camp);
         // res.send(req.body);
@@ -96,7 +96,7 @@ app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
     const camp = await Campground.findById(req.params.id);
     res.render(`campgrounds/edit`, {camp})
 }));
-app.put('/campgrounds/:id', catchAsync(async (req, res) => {
+app.put('/campgrounds/:id', validateByJoi, catchAsync(async (req, res) => {
     // res.send(req.body);
     // const camp = await Campground.findByIdAndUpdate(req.params.id, req.body, {new: true});
     // console.log('Updated Camp:', camp)
