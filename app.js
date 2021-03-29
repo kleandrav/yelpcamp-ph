@@ -6,6 +6,9 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const morgan = require('morgan');
 
+// express app
+const app = express();
+
 // import models
 const Campground = require('./models/campground');
 const Review = require('./models/review');
@@ -14,10 +17,10 @@ const Review = require('./models/review');
 const ExpressError = require('./utils/ExpressError.js')
 const catchAsync = require('./utils/catchAsync.js')
 const { joiCamp, joiReview } = require('./joiSchemas.js');
-const campground = require('./models/campground');
 
-// express app
-const app = express();
+// import routes 
+const campgroundRoutes = require('./routes/campgrounds');
+const reviewRoutes = require('./routes/reviews');
 
 // connect mongoose to mongodb
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
@@ -37,6 +40,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // parse req.body from a form POST request
 app.use(express.urlencoded({extended: true}));
+
 // method override for put / delete request
 app.use(methodOverride('_method'));
 
@@ -52,7 +56,7 @@ const validateByJoi = (req, res, next) => {
     if (req.path == '/campgrounds')
         error = joiCamp.validate(req.body).error;
     else if (req.path == '/campgrounds/:id/reviews')
-        error = joiCamp.validate(req.body).error;
+        error = joiReview.validate(req.body).error;
 
     if (error)
     {
@@ -71,75 +75,11 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-// Show All (campgrounds) route
-app.get('/campgrounds', catchAsync(async (req, res) => {
-    const campgrounds = await Campground.find({});
-    // console.log(campgrounds);
-    res.render('campgrounds/index', {campgrounds});
-}));
+// Campground Routes
+app.use('/campgrounds', campgroundRoutes);
 
-// Create (campground) routes
-app.get('/campgrounds/new', async (req, res) => {
-    res.render('campgrounds/new');
-});
-app.post('/campgrounds', validateByJoi, catchAsync(async (req, res, next) => {
-    try {      
-        const camp = new Campground(req.body);
-        console.log('New Camp:', camp);
-        // res.send(req.body);
-        await camp.save();
-        res.redirect(`/campgrounds/${camp._id}`);
-    }
-    catch (e) {
-        next(e);
-    }
-}));
-
-// Show 1 (campground) route
-app.get('/campgrounds/:id', catchAsync(async (req, res) => {
-    // console.log(req.params);
-    const camp = await Campground.findById(req.params.id).populate('reviews');
-    console.log('Showing Up:', camp);
-    res.render('campgrounds/show', {camp});
-}));
-
-// Update (campground) routes
-app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
-    const camp = await Campground.findById(req.params.id);
-    res.render(`campgrounds/edit`, {camp})
-}));
-app.put('/campgrounds/:id', validateByJoi, catchAsync(async (req, res) => {
-    // res.send(req.body);
-    // const camp = await Campground.findByIdAndUpdate(req.params.id, req.body, {new: true});
-    // console.log('Updated Camp:', camp)
-    await Campground.findByIdAndUpdate(req.params.id, req.body);
-    res.redirect(`/campgrounds/${req.params.id}`);
-}));
-
-// Delete (campground) route 
-app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
-    await Campground.findByIdAndDelete(req.params.id);
-    res.redirect('/campgrounds');
-}));
-
-// Create (review) route
-app.post('/campgrounds/:id/reviews', validateByJoi, catchAsync(async (req, res) => {
-    const camp = await Campground.findById(req.params.id);
-    const review = new Review(req.body.review);
-    console.log('New Review:', review);
-    camp.reviews.push(review);
-    await review.save();
-    await camp.save();
-    res.redirect(`/campgrounds/${camp._id}`);
-}));
-
-// Delete (review) route
-app.delete('/campgrounds/:id/reviews/:reviewId', catchAsync( async (req, res) => {
-    const {id, reviewId} = req.params;
-    await Campground.findByIdAndUpdate( id, { $pull: { reviews: reviewId }});
-    await Review.findOneAndDelete(reviewId);
-    res.redirect(`/campgrounds/${req.params.id}`);
-}))
+// Reviews Routes
+app.use('/campgrounds/:id/reviews', reviewRoutes)
 
 // 404
 app.all('*', (req, res, next) => {
