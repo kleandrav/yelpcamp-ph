@@ -5,13 +5,11 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const morgan = require('morgan');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 // express app
 const app = express();
-
-// import models
-const Campground = require('./models/campground');
-const Review = require('./models/review');
 
 //import utilities
 const ExpressError = require('./utils/ExpressError.js')
@@ -26,7 +24,8 @@ const reviewRoutes = require('./routes/reviews');
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 })
     .then(() => console.log('Database Connected!'))
     .catch(err => console.log('Mongoose Connection Error:', err));
@@ -34,9 +33,12 @@ mongoose.connect('mongodb://localhost:27017/yelp-camp', {
 // ejs-mate
 app.engine('ejs', ejsMate);
 
-// setup EJS & views directory
+// setup EJS
 app.set('view engine', 'ejs');
+
+// directories
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static( path.join(__dirname, 'public')));
 
 // parse req.body from a form POST request
 app.use(express.urlencoded({extended: true}));
@@ -47,28 +49,26 @@ app.use(methodOverride('_method'));
 // Morgan
 app.use(morgan('tiny'));
 
-// Joi Validations
-const validateByJoi = (req, res, next) => {
-    
-    // const {error} = joiCamp.validate(req.body);
-    console.log('path:', req.path);
-    let error;
-    if (req.path == '/campgrounds')
-        error = joiCamp.validate(req.body).error;
-    else if (req.path == '/campgrounds/:id/reviews')
-        error = joiReview.validate(req.body).error;
-
-    if (error)
-    {
-        console.log('error:', req.body);
-        const msg = error.details.map(err => err.message).join(', ');
-        throw new ExpressError(400, msg);
-    }
-    else
-    {
-        next();
+// Express Session & Flash
+const sessionConfig = {
+    secret: 'yourdeepestdarkestsecret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        // session expires in 15 days:
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 15, 
+        maxAge: 1000 * 60 * 60 * 24 * 15
     }
 }
+app.use( session( sessionConfig ));
+app.use( flash() ); // flash middleware
+
+app.use( (req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 // Home Page
 app.get('/', (req, res) => {
@@ -83,7 +83,7 @@ app.use('/campgrounds/:id/reviews', reviewRoutes)
 
 // 404
 app.all('*', (req, res, next) => {
-    next( new ExpressError(404, 'Page Not Found'));
+    next( new ExpressError( 404, 'Page Not Found' ));
 });
 
 // simple error handler
