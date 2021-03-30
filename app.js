@@ -70,13 +70,6 @@ const sessionConfig = {
 app.use( session( sessionConfig ));
 app.use( flash() ); // flash middleware
 
-app.use( (req, res, next) => {
-    res.locals.success = req.flash('success');
-    res.locals.error = req.flash('error');
-    next();
-})
-
-
 // PASSPORT.js
 app.use( passport.initialize() );
 app.use( passport.session() ); // supports persistent login sessions
@@ -87,6 +80,13 @@ app.use( passport.session() ); // supports persistent login sessions
     // use static serialize and deserialize of User model for passport session support
     passport.serializeUser( User.serializeUser() );
     passport.deserializeUser( User.deserializeUser() );
+    
+app.use( (req, res, next) => {
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 // Home Page
 app.get('/', (req, res) => {

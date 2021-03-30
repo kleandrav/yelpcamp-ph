@@ -8,8 +8,9 @@ const router = express.Router();
 const Campground = require('../models/campground');
 
 //import utilities
-const ExpressError = require('../utils/ExpressError.js')
-const catchAsync = require('../utils/catchAsync.js')
+const {requireLogIn} = require('../utils/middleware.js');
+const ExpressError = require('../utils/ExpressError.js');
+const catchAsync = require('../utils/catchAsync.js');
 const { joiCamp } = require('../joiSchemas.js');
 
 // Joi Validation
@@ -33,10 +34,10 @@ router.get('/', catchAsync(async (req, res) => {
 }));
 
 // Create (campground) routes
-router.get('/new', async (req, res) => {
+router.get('/new', requireLogIn, async (req, res) => {
     res.render('campgrounds/new');
 });
-router.post('/', validateCamp, catchAsync(async (req, res, next) => {
+router.post('/', requireLogIn, validateCamp, catchAsync(async (req, res, next) => {
     try {      
         const camp = new Campground(req.body);
         console.log('New Camp:', camp);
@@ -64,7 +65,7 @@ router.get('/:id', catchAsync(async (req, res) => {
 }));
 
 // Update (campground) routes
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', requireLogIn, catchAsync(async (req, res) => {
     const camp = await Campground.findById(req.params.id);
     if (!camp)
     {
@@ -73,14 +74,14 @@ router.get('/:id/edit', catchAsync(async (req, res) => {
     }
     res.render(`campgrounds/edit`, {camp})
 }));
-router.put('/:id', validateCamp, catchAsync(async (req, res) => {
+router.put('/:id', requireLogIn, validateCamp, catchAsync(async (req, res) => {
     await Campground.findByIdAndUpdate(req.params.id, req.body);
     req.flash('success', `Successfully edited ${req.body.name}.`);
     res.redirect(`/campgrounds/${req.params.id}`);
 }));
 
 // Delete (campground) route 
-router.delete('/:id', catchAsync(async (req, res) => {
+router.delete('/:id', requireLogIn, catchAsync(async (req, res) => {
     await Campground.findByIdAndDelete(req.params.id);
     req.flash('success', `Successfully deleted the campground.`);
     res.redirect('/campgrounds');
