@@ -7,9 +7,14 @@ const ejsMate = require('ejs-mate');
 const morgan = require('morgan');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalPassport = require('passport-local');
 
 // express app
 const app = express();
+
+//import models
+const User = require('./models/user');
 
 //import utilities
 const ExpressError = require('./utils/ExpressError.js')
@@ -19,6 +24,7 @@ const { joiCamp, joiReview } = require('./joiSchemas.js');
 // import routes 
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
+const userRoutes = require('./routes/users');
 
 // connect mongoose to mongodb
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
@@ -70,15 +76,26 @@ app.use( (req, res, next) => {
     next();
 })
 
+
+// PASSPORT.js
+app.use( passport.initialize() );
+app.use( passport.session() ); // supports persistent login sessions
+
+// Using static methods brought to us by passport-local-mongoose:
+    // use static authenticate method of User model in LocalStrategy
+    passport.use(new LocalPassport( User.authenticate() )); 
+    // use static serialize and deserialize of User model for passport session support
+    passport.serializeUser( User.serializeUser() );
+    passport.deserializeUser( User.deserializeUser() );
+
 // Home Page
 app.get('/', (req, res) => {
     res.render('home');
 });
 
-// Campground Routes
+// Express Router
+app.use('/', userRoutes);
 app.use('/campgrounds', campgroundRoutes);
-
-// Reviews Routes
 app.use('/campgrounds/:id/reviews', reviewRoutes)
 
 // 404
