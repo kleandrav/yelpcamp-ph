@@ -1,52 +1,25 @@
+// imports
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const User = require('../models/user');
-const {remove} = require('../models/user');
+const userControls = require('../controllers/users');
 
-router.get('/register', (req, res) => {
-    res.render('users/register');
-});
 
-router.post('/register', async (req, res) => {
-    try
-    {
-        const {email, username, password} = req.body;
-        const user = new User({email, username});
+router.route('/register')
+    .get( userControls.registerForm )
+    .post( userControls.registerUser );
 
-        // register() - convenience method to register a new user instance with a given password. Checks if username is unique. [passport-local-mongoose]
-        const registeredUser = await User.register(user, password);
-        // console.log(registeredUser);
+router.route('/login')
+    .get( userControls.loginForm )
+    .post( 
+        // If passport.authenticate() succeeds, the next handler will be invoked 
+        // and the req.user property will be set to the authenticated user.
+        passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}),
+        userControls.loginUser 
+        );
 
-        req.login(registeredUser, err => {
-            if (err) return next(err);
-            req.flash('success', `Welcome to YelpCamp, ${username}!`);
-            res.redirect('/campgrounds');
-        });        
-    }
-    catch (err)
-    {
-        req.flash('error', err.message);
-        res.redirect('register');
-    }
-})
+router.get('/logout', userControls.logoutUser );
 
-router.get('/login', (req, res) => {
-    res.render('users/login');
-});
-router.post('/login', 
-    passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}),
-    (req, res) => {        
-        req.flash('success', `Welcome back, ${req.user.username}!`);
-        const redirectUrl = req.session.returnTo || '/campgrounds';
-        res.redirect(redirectUrl);
-});
-// If authentication succeeds, the next handler will be invoked and the req.user property will be set to the authenticated user. ~ passportjs / docs / authenticate
-
-router.get('/logout', (req, res) => {
-    req.logout();
-    req.flash('success', "Goodbye!");
-    res.redirect('/campgrounds');
-});
 
 module.exports = router;
