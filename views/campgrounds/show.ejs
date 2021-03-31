@@ -1,30 +1,39 @@
 <%- layout('layouts/boilerplate') %>
 
 <section class="row">
-    <div class="card col-md-6 mb-5">
-        <div class="card-body">
-            <h1 class="card-title"><%= camp.name %></h1>
-            <p class="card-text">&#8369;<%= camp.price %>/night</p>
-          </div>
+    <div class="col-md-6">
+        <div class="card mb-5">
+            <div class="card-body">
+                <h1 class="card-title"><%= camp.name %></h1>
+                <p class="card-text">&#8369;<%= camp.price %>/night</p>
+            </div>
 
-        <img src="<%= camp.image %>" class="card-img-top img-fluid" alt="Image of <%= camp.name %>">
-        
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><%= camp.location %></li>
-          <li class="list-group-item"><%= camp.description %></li>
-        </ul>
-        <div class="card-body">
-            <a class="btn btn-success" href="/campgrounds/<%= camp.id %>/edit">Edit</a>
-            <form class="d-inline" action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST">
-                <button class="btn btn-danger">Delete</button>
-            </form>
+            <img src="<%= camp.image %>" class="card-img-top img-fluid" alt="Image of <%= camp.name %>">
+            
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item"><%= camp.location %></li>
+            <li class="list-group-item"><%= camp.description %></li>
+            <li class="list-group-item text-success">By: <%= camp.author.username %></li>
+            </ul>
+
+            <% if (currentUser && camp.author.equals(currentUser._id)) { %>
+                <div class="card-body">
+                    <a class="btn btn-success" href="/campgrounds/<%= camp.id %>/edit">Edit</a>
+                    <form class="d-inline" action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            <% } %>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="/campgrounds">All Campgrounds</a></li>
+            </ul>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item"><a href="/campgrounds">All Campgrounds</a></li>
-        </ul>
     </div>
 
     <div class="col-md-6 p-5">
+        
+    <% if (currentUser) { %>
         <h3>Leave a Review</h2>
         <form action="/campgrounds/<%= camp._id %>/reviews" method="POST" class="mb-5 validate-form" novalidate>
             <div class="mb-3">
@@ -41,6 +50,9 @@
             </div>
             <button class="btn btn-success">Submit Review</button>
         </form>
+    <% } else if (camp.reviews.length) { %>
+        <h3>Reviews:</h3>
+    <% } %>
 
         <!-- showing all reviews  -->        
         <% for (let review of camp.reviews) { %>
@@ -50,12 +62,19 @@
                         <h4 class="card-title text-warning">
                             <%- "&starf;".repeat(review.rating) %>                      
                         </h5>
+                
+                <% if (currentUser && review.author.equals(currentUser._id)) { %>
                         <form action="/campgrounds/<%= camp._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
                             <button class="btn btn-sm btn-outline-danger">Delete</button>
                         </form>
+                <% } %>
+
                     </div>
                     <p class="card-text">                        
                         <%= review.body %>
+                    </p>
+                    <p class="card-text text-success"> ~
+                        <%= review.author.username %>
                     </p>
                 </div>
             </div>

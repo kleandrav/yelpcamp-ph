@@ -36,10 +36,12 @@ router.get('/login', (req, res) => {
 });
 router.post('/login', 
     passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}),
-    (req, res) => {
+    (req, res) => {        
         req.flash('success', `Welcome back, ${req.user.username}!`);
-        res.redirect('/campgrounds');
+        const redirectUrl = req.session.returnTo || '/campgrounds';
+        res.redirect(redirectUrl);
 });
+// If authentication succeeds, the next handler will be invoked and the req.user property will be set to the authenticated user. ~ passportjs / docs / authenticate
 
 router.get('/logout', (req, res) => {
     req.logout();

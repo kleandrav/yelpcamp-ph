@@ -1807,5 +1807,7 @@ const cities = [
         "population_proper": ""
     }
 ]
-console.log(cities.length)
+
+// console.log(cities.length);
+
 module.exports = cities;

@@ -18,8 +18,6 @@ const User = require('./models/user');
 
 //import utilities
 const ExpressError = require('./utils/ExpressError.js')
-const catchAsync = require('./utils/catchAsync.js')
-const { joiCamp, joiReview } = require('./joiSchemas.js');
 
 // import routes 
 const campgroundRoutes = require('./routes/campgrounds');
