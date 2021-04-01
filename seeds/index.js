@@ -37,7 +37,28 @@ const seedDB = async () => {
             price: price,
             description: "With more than 7,000 islands consisting of rice paddies, volcanos, mega-metropolises, world-class surf spots, and endemic wildlife, the Philippines is one of the most dazzling and diverse countries in all of Asia.",
             location: `${cities[rand].city}, ${cities[rand].admin_name}`,
-            image: 'https://source.unsplash.com/collection/483251'
+            images: [
+                {
+                    url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617239898/YelpCampPh/tfb4ple84bw1txv2spy2.jpg',
+                    filename: 'YelpCampPh/tfb4ple84bw1txv2spy2'
+                },              
+                {
+                    url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617240001/YelpCampPh/zr25aigrbucdpvp9oghd.jpg',
+                    filename: 'YelpCampPh/zr25aigrbucdpvp9oghd'
+                },
+                {
+                    url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617240003/YelpCampPh/n2qzukkt3wh7u6iqlqn5.jpg',
+                    filename: 'YelpCampPh/n2qzukkt3wh7u6iqlqn5'
+                },
+                {
+                    url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617241775/YelpCampPh/k0jdcbb2fv1lfvgwfyhw.jpg',
+                    filename: 'YelpCampPh/k0jdcbb2fv1lfvgwfyhw'
+                },
+                {
+                    url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617241778/YelpCampPh/fsitd6r1nsskq6qatrdy.jpg',
+                    filename: 'YelpCampPh/fsitd6r1nsskq6qatrdy'
+                }
+            ]
         });
         await camp.save();
         console.log('Camp Saved:', camp);

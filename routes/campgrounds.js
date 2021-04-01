@@ -4,11 +4,14 @@ const router = express.Router();
 const campControls = require('../controllers/campgrounds')
 const {requireLogIn, isCampAuthor, validateCamp} = require('../utils/middleware.js');
 const catchAsync = require('../utils/catchAsync.js');
-
+const multer = require('multer');
+const { storage } = require('../cloudinary');
+const upload = multer({ storage }); // provides several methods for generating middleware that process files uploaded in multipart/form-data format
 
 router.route('/')
     .get( catchAsync( campControls.index ))
-    .post( requireLogIn, validateCamp, catchAsync( campControls.createCamp ));
+    .post( requireLogIn, upload.array('image'), validateCamp, 
+        catchAsync( campControls.createCamp ));
 
 router.get('/new', requireLogIn, campControls.newForm);
 

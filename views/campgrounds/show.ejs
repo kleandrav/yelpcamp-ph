@@ -3,19 +3,39 @@
 <link rel="stylesheet" href="/styles/starability.css">
 
 <section class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6">
+
+        <div id="campCarousel" class="carousel slide carousel-fade" 
+            data-bs-ride="carousel" data-bs-interval="4000">
+            <div class="carousel-inner">
+                <% for (let i = 0; i < camp.images.length; i++) { %>
+
+                    <div class="carousel-item <%= (i === 0) ? 'active' : '' %>">
+                        <img src="<%= camp.images[i].url %>" class="d-block w-100" alt="">
+                    </div>
+
+                <% } %>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#campCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#campCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
         <div class="card mb-5">
             <div class="card-body">
                 <h1 class="card-title"><%= camp.name %></h1>
                 <p class="card-text">&#8369;<%= camp.price %>/night</p>
             </div>
 
-            <img src="<%= camp.image %>" class="card-img-top img-fluid" alt="Image of <%= camp.name %>">
-            
             <ul class="list-group list-group-flush">
-            <li class="list-group-item"><%= camp.location %></li>
-            <li class="list-group-item"><%= camp.description %></li>
-            <li class="list-group-item text-success">By: <%= camp.author.username %></li>
+                <li class="list-group-item"><%= camp.location %></li>
+                <li class="list-group-item"><%= camp.description %></li>
+                <li class="list-group-item text-success">By: <%= camp.author.username %></li>
             </ul>
 
             <% if (currentUser && camp.author.equals(currentUser._id)) { %>
@@ -33,7 +53,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 p-5">
+    <div class="col-lg-6 p-5">
         
     <% if (currentUser) { %>
         <h3>Leave a Review</h2>

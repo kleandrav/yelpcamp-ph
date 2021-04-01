@@ -2,11 +2,16 @@
 
 // models
 const Campground = require('../models/campground');
-
+const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
-    // console.log(campgrounds);
+    for (let camp of campgrounds)
+    {
+        let x = Math.floor(Math.random() * camp.images.length);
+        camp.image = camp.images[x].url;
+        console.log(x, camp.image)
+    }
     res.render('campgrounds/index', {campgrounds});
 };
 
@@ -18,6 +23,7 @@ module.exports.createCamp = async (req, res, next) => {
     try {      
         const camp = new Campground(req.body);
         camp.author = req.user._id;
+        camp.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
         console.log('New Camp:', camp);
         // res.send(req.body);
         await camp.save();

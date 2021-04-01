@@ -1,3 +1,10 @@
+// config
+if ( process.env.NODE_ENV !== "production" )
+{
+    require('dotenv').config();
+}
+const port = process.env.PORT || 3000;
+
 // import modules
 const express = require('express');
 const path = require('path');
@@ -108,6 +115,6 @@ app.use((err, req, res, next) => {
     res.render('error', {err});
 });
 
-app.listen(8080, () => {
-    console.log("Server's open on port 8080")
+app.listen(port, () => {
+    console.log(`Server's open on port ${port}!`);
 });

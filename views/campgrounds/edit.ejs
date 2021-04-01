@@ -2,8 +2,8 @@
 
 <h1>Edit Campground</h1>
 
-<form action="/campgrounds/<%= camp.id %>?_method=PUT" method="POST" 
-    class="row my-3 validate-form" novalidate>
+<form action="/campgrounds/<%= camp.id %>?_method=PUT" method="POST" class="row my-3 validate-form" 
+    enctype="multipart/form-data" novalidate>
 
     <div class="col-lg-10 mb-3">
         <label for="name" class="form-label">Name:</label>

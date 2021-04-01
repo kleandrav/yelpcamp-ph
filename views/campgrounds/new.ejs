@@ -2,7 +2,8 @@
 
 <h1>Add a New Campground</h1>
 
-<form action="/campgrounds" method="POST" class="row my-3 validate-form" novalidate>
+<form action="/campgrounds" method="POST" class="row my-3 validate-form" 
+    enctype="multipart/form-data" novalidate>
 
     <div class="col-lg-10 mb-3">
         <label for="name" class="form-label">Name:</label>
@@ -15,7 +16,8 @@
 
     <div class="col-lg-10 mb-3">
         <label for="image" class="form-label">Image URL:</label>
-        <input type="text" class="form-control" id="image" name="image" required>
+        <!-- input type="text" class="form-control" id="image" name="image" required> -->
+        <input type="file" class="form-control" name="image" id="image" multiple required>
         <div class="valid-feedback">Looks good!</div>
         <div class="invalid-feedback">
             Please enter the campground's image URL.
