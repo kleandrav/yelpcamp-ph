@@ -86,12 +86,30 @@ module.exports.updateCamp = async (req, res) => {
     const { id } = req.params;
     const camp = await Campground.findByIdAndUpdate(id, { ...req.body });
 
+    const newLocation = req.body.location;
+    console.log({ newLocation });
+
+    // If Location was changed
+    if (newLocation !== camp.location)
+    {
+        const geoData = await geocoder.forwardGeocode({
+            query: newLocation,
+            limit: 1
+        }).send();
+        camp.geometry = geoData.body.features[0].geometry;
+        console.log( camp.geometry );
+    }    
+
     // New images to Add
     if ( req.files.length )
     {
         console.log('Adding new images:', req.files);
         const images = req.files.map( img => ({ url: img.path, filename: img.filename }));
         camp.images.push( ...images );
+    }
+    
+    if ((newLocation !== camp.location) || ( req.files.length ))
+    {
         await camp.save();
     }
 
