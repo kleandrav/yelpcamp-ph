@@ -14,16 +14,6 @@
         </div>
     </div>
 
-    <div class="col-lg-10 mb-3">
-        <label for="image" class="form-label">Image URL:</label>
-        <!-- input type="text" class="form-control" id="image" name="image" required> -->
-        <input type="file" class="form-control" name="image" id="image" multiple required>
-        <div class="valid-feedback">Looks good!</div>
-        <div class="invalid-feedback">
-            Please enter the campground's image URL.
-        </div>
-    </div>
-
     <div class="col-sm-6 col-lg-5 mb-3">
         <label for="location" class="form-label">Location:</label>
         <input type="text" class="form-control" id="location" name="location" required>
@@ -50,6 +40,20 @@
         <div class="valid-feedback">Looks good!</div>
         <div class="invalid-feedback">
             Please enter a description for this campground.
+        </div>
+    </div>
+
+    <div class="col-lg-10 mb-3">
+        <div class="custom-file">
+            <label for="image" class="form-label">
+                Upload Image(s):
+            </label>
+            <input class="form-control" type="file" name="image" id="image" multiple required>
+            <p class="custom-file-label"></p>
+        </div>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please enter the campground's image URL.
         </div>
     </div>
 

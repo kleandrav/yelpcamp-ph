@@ -17,10 +17,13 @@ router.get('/new', requireLogIn, campControls.newForm);
 
 router.route('/:id')
     .get( catchAsync( campControls.showCamp ))
-    .put( requireLogIn, isCampAuthor, validateCamp, catchAsync( campControls.updateCamp ))
-    .delete( requireLogIn, isCampAuthor, catchAsync( campControls.deleteCamp ));
+    .put( requireLogIn, isCampAuthor, upload.array('image'), 
+        validateCamp, catchAsync( campControls.updateCamp ))
+    .delete( requireLogIn, isCampAuthor, 
+        catchAsync( campControls.deleteCamp ));
 
-router.get('/:id/edit', requireLogIn, isCampAuthor, catchAsync( campControls.editForm ));
+router.get('/:id/edit', requireLogIn, isCampAuthor, 
+    catchAsync( campControls.editForm ));
 
 
 module.exports = router;

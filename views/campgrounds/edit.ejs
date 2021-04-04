@@ -5,21 +5,12 @@
 <form action="/campgrounds/<%= camp.id %>?_method=PUT" method="POST" class="row my-3 validate-form" 
     enctype="multipart/form-data" novalidate>
 
-    <div class="col-lg-10 mb-3">
+    <div class="col-lg-10 mb-3 custom-file">
         <label for="name" class="form-label">Name:</label>
         <input type="text" class="form-control" id="name" name="name" value="<%= camp.name %>"  required>
         <div class="valid-feedback">Looks good!</div>
         <div class="invalid-feedback">
             Please enter the campground's name.
-        </div>
-    </div>
-
-    <div class="col-lg-10 mb-3">
-        <label for="image" class="form-label">Image URL:</label>
-        <input type="text" class="form-control" id="image" name="image" value="<%= camp.image %>"  required>
-        <div class="valid-feedback">Looks good!</div>
-        <div class="invalid-feedback">
-            Please enter the campground's image URL.
         </div>
     </div>
 
@@ -53,6 +44,33 @@
         </div>
     </div>
 
+    <div class="col-lg-10 mb-3">
+        <div class="custom-file">
+            <label for="image" class="form-label">
+                Add Image(s):
+            </label>
+            <input class="form-control" type="file" name="image" id="image" multiple>
+            <p class="custom-file-label"></p>
+        </div>
+    </div>
+
+    <div class="col-lg-10 mb-3">
+        <label for="">Select the image(s) you want to delete:</label>
+        <div class="delete-box">
+
+            <% camp.images.forEach( (img, i) => { %>
+                <div class="delete-item form-check">
+                    <label for="image-<%= i %>" class="form-check-label">  
+                        <img src="<%= img.thumbnail %>" class="img-thumb" alt="<%= img.filename %>">
+                    </label>
+                    <input type="checkbox" class="form-check-input" name="deleteImages[]" 
+                        value="<%= img.filename %>" id="image-<%= i %>">                    
+                </div>
+            <% }) %>
+
+        </div>
+    </div>
+
     <div class="col-md-10 mb-3">
         <button class="btn btn-success" type="submit">
             Save Changes
@@ -63,3 +81,5 @@
 <p>
     <a href="/campgrounds/<%= camp.id %>">Back To Campground</a>
 </p>
+
+<script type="text/javascript" src="/scripts/editScript.js"></script>

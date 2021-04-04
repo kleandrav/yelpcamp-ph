@@ -2,3 +2,32 @@
 {
     font-size: 0.9rem;
 }
+
+.custom-file-label
+{
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #000a;
+}
+
+.delete-box
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 1rem 0;
+}
+.delete-item
+{
+    position: relative;
+    padding: 0;
+    height: 100%;
+    border: 2px solid transparent;
+}
+.delete-item input
+{
+    position: absolute;
+    top: 2px;
+    right: 4px;
+} 
