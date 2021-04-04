@@ -24,7 +24,18 @@ const CampgroundSchema = new Schema({
     reviews: [{
         type: Schema.Types.ObjectId,
         ref: 'Review'
-    }]
+    }],
+    geometry: {
+        type: {
+            type: String,
+            enum: [ 'Point' ],
+            required: true
+        },
+        coordinates: {
+            type: [ Number ],
+            required: true
+        }
+    }
 });
 
 CampgroundSchema.post('findOneAndDelete', async function (doc) {

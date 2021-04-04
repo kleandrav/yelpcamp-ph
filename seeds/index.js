@@ -29,14 +29,18 @@ const seedDB = async () => {
     for (let i = 0; i < 15; i++)
     {
         let rand = Math.floor(Math.random() * 164);
+        const {city, lat, lng} = cities[rand];
+        const province = cities[rand].admin_name;
+
         // random price between 300 to 5000 pesos
         let price = 300 + Math.floor(Math.random() * 4701);
+
         let camp = new Campground({
             name: `${seeder(descriptors)} ${seeder(places)}`,
             author: '6063d6119f35671b2ff801cf',
             price: price,
             description: "With more than 7,000 islands consisting of rice paddies, volcanos, mega-metropolises, world-class surf spots, and endemic wildlife, the Philippines is one of the most dazzling and diverse countries in all of Asia.",
-            location: `${cities[rand].city}, ${cities[rand].admin_name}`,
+            location: `${city}, ${province}`,
             images: [
                 {
                     url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617239898/YelpCampPh/tfb4ple84bw1txv2spy2.jpg',
@@ -58,7 +62,11 @@ const seedDB = async () => {
                     url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617241778/YelpCampPh/fsitd6r1nsskq6qatrdy.jpg',
                     filename: 'YelpCampPh/fsitd6r1nsskq6qatrdy'
                 }
-            ]
+            ],
+            geometry: {
+                type: "Point",
+                coordinates: [lng, lat]
+            }
         });
         await camp.save();
         console.log('Camp Saved:', camp);

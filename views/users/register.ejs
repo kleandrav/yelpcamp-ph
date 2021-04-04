@@ -1,27 +1,29 @@
 <% layout('layouts/boilerplate') %>
 
-<h1>Register</h1>
-<form action="/register" method="POST" class="validate-form" novalidate>
-    <div class="mb-3">
-        <label for="username" class="form-label">Username:</label>
-        <input type="text" class="form-control" id="username" name="username" required>
-        <div class="valid-feedback">
-            Looks good!
+<section class="container user">
+    <h1>Register</h1>
+    <form action="/register" method="POST" class="validate-form" novalidate>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
         </div>
-    </div>
-    <div class="mb-3">
-        <label for="email" class="form-label">Email:</label>
-        <input type="text" class="form-control" type="email" id="email" name="email" required>
-        <div class="valid-feedback">
-            Looks good!
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="text" class="form-control" type="email" id="email" name="email" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
         </div>
-    </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password:</label>
-        <input type="password" name="password" id="password" class="form-control" required>
-        <div class="valid-feedback">
-            Looks good!
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" name="password" id="password" class="form-control" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
         </div>
-    </div>
-    <button class="btn btn-success">Register</button>
-</form>
+        <button class="btn btn-success">Register</button>
+    </form>
+</section>

@@ -11,13 +11,18 @@
 
     <!-- My CSS  -->
     <link rel="stylesheet" href="/styles/style.css">
+
+    <!-- Mapbox GL  -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+
 </head>
 
 <body class="d-flex flex-column vh-100">
     
     <%- include('../partials/navbar.ejs'); %>
 
-    <main class="container mt-5 pt-5">
+    <main class="container-fluid mt-5 p-xl-5 pt-5">
         <%- include('../partials/flash.ejs') %>
 
         <%- body %>

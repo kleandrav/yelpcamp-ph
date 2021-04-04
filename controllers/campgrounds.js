@@ -2,16 +2,27 @@
 
 // models
 const Campground = require('../models/campground');
-const { cloudinary } = require("../cloudinary");
 const campground = require('../models/campground');
+
+const { cloudinary } = require("../cloudinary");
+
+// Geocoding
+// To create a service client, import the service's factory function from '@mapbox/mapbox-sdk/services/{service}' and provide it with your access token.
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mbxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({ accessToken: mbxToken });
+
 
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
     for (let camp of campgrounds)
     {
-        let x = Math.floor(Math.random() * camp.images.length);
-        camp.image = camp.images[x].url;
-        // console.log(x, camp.image)
+        if (camp.images.length) {
+            let x = Math.floor(Math.random() * camp.images.length);
+            camp.image = camp.images[x].url;
+        } else {
+            camp.image = "";
+        }
     }
     res.render('campgrounds/index', {campgrounds});
 };
@@ -23,6 +34,15 @@ module.exports.newForm = async (req, res) => {
 module.exports.createCamp = async (req, res, next) => {
     try {      
         const camp = new Campground(req.body);
+
+        const geoData = await geocoder.forwardGeocode({
+            query: camp.location,
+            limit: 1
+        }).send();
+
+        camp.geometry = geoData.body.features[0].geometry;
+        console.log( camp.geometry );
+
         camp.author = req.user._id;
         camp.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
 

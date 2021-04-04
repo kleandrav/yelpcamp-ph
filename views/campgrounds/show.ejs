@@ -53,10 +53,11 @@
         </div>
     </div>
 
-    <div class="col-lg-6 p-5">
-        
+    <div class="col-lg-6">
+        <div id="map"></div>
+
     <% if (currentUser) { %>
-        <h3>Leave a Review</h2>
+        <h4>Leave a Review</h4>
         <form action="/campgrounds/<%= camp._id %>/reviews" method="POST" class="mb-5 validate-form" novalidate>
             <div class="mb-3">
                 <fieldset class="starability-growRotate">
@@ -114,3 +115,12 @@
         <% } %>
     </div>
 </section>
+
+<script>
+    // public mapbox token
+    const mbxToken = '<%-process.env.MAPBOX_TOKEN%>';
+    const campground = <%- JSON.stringify(camp) %>;
+    console.log(campground);
+</script>
+
+<script src="/scripts/showMap.js"></script>
