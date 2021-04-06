@@ -2,18 +2,16 @@
 
 <link rel="stylesheet" href="/styles/starability.css">
 
-<section class="row">
+<section class="container row mx-auto">
     <div class="col-lg-6">
 
         <div id="campCarousel" class="carousel slide carousel-fade" 
             data-bs-ride="carousel" data-bs-interval="4000">
             <div class="carousel-inner">
                 <% for (let i = 0; i < camp.images.length; i++) { %>
-
                     <div class="carousel-item <%= (i === 0) ? 'active' : '' %>">
                         <img src="<%= camp.images[i].url %>" class="d-block w-100" alt="">
                     </div>
-
                 <% } %>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#campCarousel" data-bs-slide="prev">
@@ -57,9 +55,9 @@
         <div id="map"></div>
 
     <% if (currentUser) { %>
-        <h4>Leave a Review</h4>
+        <h4 class="mt-5">Leave a Review</h4>
         <form action="/campgrounds/<%= camp._id %>/reviews" method="POST" class="mb-5 validate-form" novalidate>
-            <div class="mb-3">
+            <div>
                 <fieldset class="starability-growRotate">
                     <!-- <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." /> -->
                     <input type="radio" id="first-rate1" name="review[rating]" value="1" checked />
@@ -75,8 +73,9 @@
                 </fieldset>
             </div>
             <div class="mb-3">
-                <label for="review" class="form-label">Review</label>
-                <textarea name="review[body]" id="body" cols="30" rows="3" class="form-control" required></textarea>
+                <!-- <label for="review" class="form-label">Review</label> -->
+                <textarea name="review[body]" id="body" cols="30" rows="3" class="form-control"
+                    placeholder="Enter your review here..." required></textarea>
                 <div class="valid-feedback">Looks good!</div>
                 <div class="invalid-feedback">
                     Please enter your review for <% camp.name %>.
@@ -84,7 +83,15 @@
             </div>
             <button class="btn btn-success">Submit Review</button>
         </form>
-    <% } else if (camp.reviews.length) { %>
+    <% } else { %> 
+        <div class="my-5">
+            <em> <a href="/login" target="_blank">Log in</a> or 
+            <a href="/register" target="_blank">Sign up</a>
+             to leave a review for this campground.</em>
+       </div>
+    <% } %>
+
+    <% if (camp.reviews.length) { %>
         <h3 class="pt-4 pb-2">Reviews</h3>
     <% } %>
 
@@ -102,7 +109,6 @@
                             <button class="btn btn-sm btn-outline-danger">Delete</button>
                         </form>
                 <% } %>
-
                     </div>
                     <p class="card-text">                        
                         <%= review.body %>

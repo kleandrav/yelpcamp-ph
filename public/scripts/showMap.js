@@ -8,6 +8,8 @@ const map = new mapboxgl.Map({
     zoom: 12 // starting zoom
 });
 
+map.addControl( new mapboxgl.NavigationControl() );
+
 let popUp = `<h4>${ campground.name }</h4><p>${ campground.location }</p>`;
 
 new mapboxgl.Marker()

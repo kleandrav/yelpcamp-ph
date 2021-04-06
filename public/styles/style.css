@@ -1,3 +1,8 @@
+a:hover
+{
+    color:black;
+}
+
 .alert
 {
     font-size: 0.9rem;
@@ -34,13 +39,31 @@
 
 .user
 {
-    max-width: 600px;
-    margin: 40px auto;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
-#map
+#map, #cluster-map
 {
     width: 100%;
+    background-color: white;
+}
+#map
+{
     height: 60vh;
-    background-color: aquamarine;
+}
+#cluster-map
+{
+    height: 70vh;
+}
+
+.camp-card
+{
+    margin: 10px;
+}
+@media (min-width: 1200px) {
+    .camp-card
+    {
+        width: 45%;
+    }
 }

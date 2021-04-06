@@ -1,12 +1,14 @@
 mapboxgl.accessToken = mbxToken;
 
 const map = new mapboxgl.Map({
-    container: 'map',
+    container: 'cluster-map',
     style: 'mapbox://styles/mapbox/outdoors-v11',
     center: [121, 11],
     zoom: 4
 });
  
+map.addControl( new mapboxgl.NavigationControl() );
+
 map.on('load', function () {
     // Add a new source from our GeoJSON data and
     // set the 'cluster' option to true. GL-JS will

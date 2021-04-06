@@ -26,7 +26,7 @@ const seedDB = async () => {
     await Campground.deleteMany({});
     console.log('Deleted old data in campgrounds database');
     // seeding random camps
-    for (let i = 0; i < 150; i++)
+    for (let i = 0; i < 200; i++)
     {
         let rand = Math.floor(Math.random() * 164);
         const {city, lat, lng} = cities[rand];
@@ -37,7 +37,7 @@ const seedDB = async () => {
 
         let camp = new Campground({
             name: `${seeder(descriptors)} ${seeder(places)}`,
-            author: '6063d6119f35671b2ff801cf',
+            author: '6064e278b6c09a2b524f6ae9',
             price: price,
             description: "With more than 7,000 islands consisting of rice paddies, volcanos, mega-metropolises, world-class surf spots, and endemic wildlife, the Philippines is one of the most dazzling and diverse countries in all of Asia.",
             location: `${city}, ${province}`,
