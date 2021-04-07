@@ -5,6 +5,7 @@ module.exports.scriptSrcUrls = [
     "https://kit.fontawesome.com/",
     "https://cdnjs.cloudflare.com/",
     "https://cdn.jsdelivr.net",
+    "https://ajax.googleapis.com/ajax/libs/jquery/"
 ];
 
 module.exports.styleSrcUrls = [
@@ -21,7 +22,7 @@ module.exports.connectSrcUrls = [
     "https://api.mapbox.com/",
     "https://a.tiles.mapbox.com/",
     "https://b.tiles.mapbox.com/",
-    "https://events.mapbox.com/",
+    "https://events.mapbox.com/"
 ];
 
 module.exports.fontSrcUrls = [];

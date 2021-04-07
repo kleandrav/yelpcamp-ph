@@ -8,6 +8,7 @@ a:hover
     font-size: 0.9rem;
 }
 
+/* new & edit forms  */
 .custom-file-label
 {
     margin-top: 0.5rem;
@@ -16,6 +17,7 @@ a:hover
     color: #000a;
 }
 
+/* campgrounds/edit  */
 .delete-box
 {
     display: flex;
@@ -41,12 +43,14 @@ a:hover
     right: 4px;
 } 
 
+/* login & register  */
 .user
 {
     max-width: 500px;
     margin: 0 auto;
 }
 
+/* mapbox  */
 #map, #cluster-map
 {
     width: 100%;
@@ -61,6 +65,7 @@ a:hover
     height: 70vh;
 }
 
+/* campgrounds/index  */
 .camp-card
 {
     margin: 10px;
@@ -69,5 +74,76 @@ a:hover
     .camp-card
     {
         width: 45%;
+    }
+}
+
+/* Loading Animation  */
+.loader-wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0008;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+.loader {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    border: 4px solid #Fff;
+    animation: loader 2s infinite ease;
+}
+.loader-inner {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+    background-color: #fff;
+    animation: loader-inner 2s infinite ease-in;
+}
+@keyframes loader {
+    0% {
+      transform: rotate(0deg);
+    }
+    
+    25% {
+      transform: rotate(180deg);
+    }
+    
+    50% {
+      transform: rotate(180deg);
+    }
+    
+    75% {
+      transform: rotate(360deg);
+    }
+    
+    100% {
+      transform: rotate(360deg);
+    }
+}
+@keyframes loader-inner {
+    0% {
+      height: 0%;
+    }
+    
+    25% {
+      height: 0%;
+    }
+    
+    50% {
+      height: 100%;
+    }
+    
+    75% {
+      height: 100%;
+    }
+    
+    100% {
+      height: 0%;
     }
 }
