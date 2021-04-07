@@ -118,9 +118,9 @@ app.use( passport.session() ); // supports persistent login sessions
     passport.deserializeUser( User.deserializeUser() );
     
 app.use( (req, res, next) => {
-    console.log( req.query );
+    // console.log( req.query );
     res.locals.currentUser = req.user;
-    console.log(res.locals.currentUser);
+    // console.log(res.locals.currentUser);
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
