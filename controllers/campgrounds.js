@@ -1,10 +1,8 @@
 // Controllers for Campground Routes
 
-// models
 const Campground = require('../models/campground');
-const campground = require('../models/campground');
-
 const { cloudinary } = require("../cloudinary");
+const shuffle = require('array-shuffle');
 
 // Geocoding
 // To create a service client, import the service's factory function from '@mapbox/mapbox-sdk/services/{service}' and provide it with your access token.
@@ -14,7 +12,7 @@ const geocoder = mbxGeocoding({ accessToken: mbxToken });
 
 
 module.exports.index = async (req, res) => {
-    const campgrounds = await Campground.find({});
+    const campgrounds = shuffle( await Campground.find({}) );
     for (let camp of campgrounds)
     {
         if (camp.images.length) {
