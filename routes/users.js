@@ -2,13 +2,13 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
-const User = require('../models/user');
 const userControls = require('../controllers/users');
-
+const { requireLogIn } = require('../utils/middleware.js');
+const catchAsync = require('../utils/catchAsync.js');
 
 router.route('/register')
     .get( userControls.registerForm )
-    .post( userControls.registerUser );
+    .post( catchAsync( userControls.registerUser ));
 
 router.route('/login')
     .get( userControls.loginForm )
@@ -21,5 +21,6 @@ router.route('/login')
 
 router.get('/logout', userControls.logoutUser );
 
+router.get('/mycampgrounds', requireLogIn, userControls.userCampgrounds );
 
 module.exports = router;

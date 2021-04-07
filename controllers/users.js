@@ -1,4 +1,6 @@
+const { resolveInclude } = require('ejs');
 const User = require('../models/user');
+const Campground = require('../models/campground');
 const {capitalize} = require('../utils/formatter');
 
 module.exports.registerForm = (req, res) => {
@@ -43,3 +45,10 @@ module.exports.logoutUser = (req, res) => {
     req.flash('success', "Goodbye!");
     res.redirect('/campgrounds');
 };
+
+module.exports.userCampgrounds = async (req, res) => {
+    let id = res.locals.currentUser._id;
+    // console.log( id );
+    const campgrounds = await Campground.find({ author: { $in: id } });
+    res.render('users/campgrounds.ejs', { campgrounds })
+}

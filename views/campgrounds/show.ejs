@@ -4,27 +4,33 @@
 
 <section class="container row mx-auto">
     <div class="col-lg-6">
-
-        <div id="campCarousel" class="carousel slide carousel-fade" 
-            data-bs-ride="carousel" data-bs-interval="4000">
-            <div class="carousel-inner">
-                <% for (let i = 0; i < camp.images.length; i++) { %>
-                    <div class="carousel-item <%= (i === 0) ? 'active' : '' %>">
-                        <img src="<%= camp.images[i].url %>" class="d-block w-100" alt="">
-                    </div>
-                <% } %>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#campCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#campCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-
         <div class="card mb-5">
+
+            <div id="camp-carousel" class="carousel slide carousel-fade" 
+            data-bs-ride="carousel" data-bs-interval="4000">
+                <div class="carousel-inner">                    
+                    <% if (!camp.images.length) { %>
+                        <div class="carousel-item active">
+                            <img src="https://images.unsplash.com/photo-1468245856972-a0333f3f8293?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="d-block w-100" alt="">
+                        </div>                        
+                    <% } else { %>
+                        <% for (let i = 0; i < camp.images.length; i++) { %>
+                            <div class="carousel-item <%= (i === 0) ? 'active' : '' %>">
+                                <img src="<%= camp.images[i].url %>" class="d-block w-100" alt="">
+                            </div>
+                        <% } %>
+                    <% } %>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#camp-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#camp-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
             <div class="card-body">
                 <h1 class="card-title"><%= camp.name %></h1>
                 <p class="card-text">&#8369;<%= camp.price %>/night</p>
@@ -84,10 +90,12 @@
             <button class="btn btn-success async-btn">Submit Review</button>
         </form>
     <% } else { %> 
-        <div class="my-5">
-            <em> <a href="/login" target="_blank">Log in</a> or 
+        <div class="my-5 text-muted text-center"> 
+            <small>
+            Please <a href="/login" target="_blank">Log in</a> or 
             <a href="/register" target="_blank">Sign up</a>
-             to leave a review for this campground.</em>
+             to leave a review for this campground.
+            </small>
        </div>
     <% } %>
 

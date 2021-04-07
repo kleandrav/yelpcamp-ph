@@ -15,6 +15,8 @@ router.route('/')
 
 router.get('/new', requireLogIn, campControls.newForm);
 
+router.get('/search', catchAsync( campControls.search ));
+
 router.route('/:id')
     .get( catchAsync( campControls.showCamp ))
     .put( requireLogIn, isCampAuthor, upload.array('image'), 
@@ -24,6 +26,5 @@ router.route('/:id')
 
 router.get('/:id/edit', requireLogIn, isCampAuthor, 
     catchAsync( campControls.editForm ));
-
 
 module.exports = router;

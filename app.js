@@ -118,8 +118,10 @@ app.use( passport.session() ); // supports persistent login sessions
     passport.deserializeUser( User.deserializeUser() );
     
 app.use( (req, res, next) => {
-    // console.log( req.query );
+    console.log( 'From main app:', req.query );
     res.locals.currentUser = req.user;
+    res.locals.campgrounds = [];
+    res.locals.numPages = 1;
     // console.log(res.locals.currentUser);
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');

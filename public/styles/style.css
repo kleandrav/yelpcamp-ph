@@ -1,13 +1,15 @@
+a
+{
+  color: #198754;
+}
 a:hover
 {
     color:black;
 }
-
 .alert
 {
     font-size: 0.9rem;
 }
-
 /* new & edit forms  */
 .custom-file-label
 {
@@ -16,6 +18,17 @@ a:hover
     line-height: 1.4;
     color: #000a;
 }
+
+/* navbar  */
+nav .dropdown-item
+{
+  line-height: 2;
+  color: snow;
+}
+/* nav a.nav-link:hover
+{
+  color: #198754 !important;
+} */
 
 /* campgrounds/edit  */
 .delete-box
@@ -170,4 +183,11 @@ footer a
 footer a:hover 
 {
   color: white;
+}
+
+/* carousel  */
+#camp-carousel .carousel-inner
+{
+  height: 45vh;
+  background-color: whitesmoke;
 }

@@ -40,6 +40,8 @@ const CampgroundSchema = new Schema({
     }
 }, opts);
 
+CampgroundSchema.index({ name: "text", location: "text" });
+
 CampgroundSchema.virtual('properties.popupText').get( function() {
     // return `<p><img src="${this.images[0].thumbnail}"></p>
     return `<h2 class="fs-6 mb-1">

@@ -25,7 +25,9 @@ module.exports.connectSrcUrls = [
     "https://events.mapbox.com/"
 ];
 
-module.exports.fontSrcUrls = [];
+module.exports.fontSrcUrls = [
+    'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/'
+];
 
 /** 
 

@@ -1,4 +1,4 @@
-console.log('running edit Script');
+// console.log('running edit Script');
 
 const checkboxes = document.querySelectorAll('.delete-item input');
 
@@ -13,6 +13,6 @@ for ( let chk of checkboxes )
         {
             this.parentElement.style.borderColor = "transparent";
         }
-        console.log(this.parentElement);
+        // console.log(this.parentElement);
     });
 }

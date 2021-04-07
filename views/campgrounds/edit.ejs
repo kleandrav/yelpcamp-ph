@@ -7,7 +7,8 @@
 
     <div class="col-lg-10 mb-3 custom-file">
         <label for="name" class="form-label">Name:</label>
-        <input type="text" class="form-control" id="name" name="name" value="<%= camp.name %>"  required>
+        <input type="text" class="form-control" id="name" name="name" value="<%= camp.name %>"  required
+            placeholder="Location in the Philippines" >
         <div class="valid-feedback">Looks good!</div>
         <div class="invalid-feedback">
             Please enter the campground's name.
@@ -19,7 +20,7 @@
         <input type="text" class="form-control" id="location" name="location" value="<%= camp.location %>"  required>
         <div class="valid-feedback">Looks good!</div>
         <div class="invalid-feedback">
-            Please enter the campground's location.
+            Please enter a campground location in the Philippines.
         </div>
     </div>
     <div class="col-sm-6 col-lg-5 mb-3">
@@ -36,7 +37,7 @@
 
     <div class="col-lg-10 mb-3">
         <label for="description" class="form-label">Description:</label>
-        <textarea class="form-control" name="description" id="description" rows="3" 
+        <textarea class="form-control" name="description" id="description" rows="8" 
             required><%= camp.description %></textarea>
         <div class="valid-feedback">Looks good!</div>
         <div class="invalid-feedback">

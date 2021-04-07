@@ -31,10 +31,15 @@ body {
 }
 
 .btn-secondary {
-    color: #333;
+    color: #3a3a3a;
     text-shadow: none;
     transition: 200ms ease-in;
 }
 .btn-secondary:hover {
     color: black;
+    box-shadow: 0 0 8px 1px #0008;
+}
+
+.lead {
+    font-size: 1.2rem;
 }

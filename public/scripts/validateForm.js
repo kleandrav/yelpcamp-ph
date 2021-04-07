@@ -12,7 +12,7 @@
     // Loop over them and prevent submission
     Array.from(forms)
         .forEach(function (form) {
-            console.log(form);
+            // console.log(form);
             form.addEventListener('submit', function (event) {
                 if (!form.checkValidity()) {
                     console.log('STOP THE FORM!');

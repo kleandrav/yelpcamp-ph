@@ -4,25 +4,31 @@ const Campground = require('../models/campground');
 const { cloudinary } = require("../cloudinary");
 const shuffle = require('array-shuffle');
 
+const sanitizeHtml = require('sanitize-html');
+
 // Geocoding
 // To create a service client, import the service's factory function from '@mapbox/mapbox-sdk/services/{service}' and provide it with your access token.
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mbxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mbxToken });
 
-
 module.exports.index = async (req, res) => {
+    console.log('from the controller:', req.query);
     const campgrounds = shuffle( await Campground.find({}) );
-    for (let camp of campgrounds)
-    {
-        if (camp.images.length) {
-            // let x = Math.floor(Math.random() * camp.images.length);
-            camp.image = camp.images[0].url;
-        } else {
-            camp.image = "";
-        }
-    }
     res.render('campgrounds/index', {campgrounds});
+};
+
+module.exports.search = async (req, res) => {
+    const searchTerm = (req.query.q).match(/\w+/g).join(' ');
+    console.log(searchTerm);
+
+    const campgrounds = await Campground.find({
+        $text: {
+            $search: searchTerm
+        }
+    });
+
+    res.render('campgrounds/search', {searchTerm , campgrounds});
 };
 
 module.exports.newForm = async (req, res) => {

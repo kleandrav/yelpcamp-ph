@@ -16,16 +16,15 @@ const addImageBtn = document.querySelector('.adds-images');
 if (addImageBtn) {
     const imageInput = document.getElementById('new-camp-images');
     const fileLabel = document.querySelector('.custom-file-label');
-    addImageBtn.onclick = (event) => {
-        if (imageInput.files.length > 3) {
+
+    addImageBtn.onclick = (event) => {            
+        if (imageInput && imageInput.files.length > 3) 
+        {
             event.preventDefault();
-            // console.log( imageInput.files.length + " files entered." );
             imageInput.classList.add('invalid');
             fileLabel.classList.add('invalid-text');
             fileLabel.innerText = "Maximum of 3 photos only.";
-        } else {
-            loader.style.display = "flex";
-        }
+        } 
     }
 }
 
