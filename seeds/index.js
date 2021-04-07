@@ -29,7 +29,7 @@ const seedDB = async () => {
     console.log('Deleted old data in campgrounds database!');
 
     // seeding random camps
-    for (let i = 0; i < 50; i++)
+    for (let i = 0; i < 100; i++)
     {
         let rand = Math.floor(Math.random() * 164);
         const {city, lat, lng} = cities[rand];
@@ -52,7 +52,7 @@ const seedDB = async () => {
             name: `${seeder(descriptors)} ${seeder(places)}`,
             author: '6064e278b6c09a2b524f6ae9', // Own user _id
             price: price,
-            description: "With more than 7,000 islands consisting of rice paddies, volcanos, mega-metropolises, world-class surf spots, and endemic wildlife, the Philippines is one of the most dazzling and diverse countries in all of Asia. Not to mention, it’s home to some of the world’s best beaches, too. Philippines has garnered numerous titles related to tourism, namely, the traditional capital of the world’s festivities, the capital of the western Pacific, the centre of Hispanic Asia, the Pearl of the Orient Seas, center of the Coral Triangle, and the capital of fun. The country is also a biodiversity hotspot, having the world’s highest endemism rate for bird species, and one of the highest for mammals and flora. (travelope.in)",
+            description: "With more than 7,000 islands consisting of rice paddies, volcanos, hills, mountains, cliffs, world-class surf spots, and endemic wildlife, the Philippines is one of the most dazzling and diverse countries in all of Asia. Not to mention, it’s home to some of the world’s best beaches, too. The country is a biodiversity hotspot, having the world’s highest endemism rate for bird species, and one of the highest for mammals and flora. (travelope.in)",
             location: `${city}, ${province}`,
             images: [ ...randomImages ],
             geometry: {
