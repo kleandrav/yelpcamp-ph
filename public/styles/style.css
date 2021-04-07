@@ -147,3 +147,14 @@ a:hover
       height: 0%;
     }
 }
+
+/* validation  */
+.invalid
+{
+  color: #dc3545;
+  border: 1px solid #dc3545aa;
+}
+.invalid-text
+{
+  color:#dc3545;
+}

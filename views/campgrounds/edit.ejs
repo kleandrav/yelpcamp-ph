@@ -44,15 +44,17 @@
         </div>
     </div>
 
+    <% if (camp.images.length < 3) { %>
     <div class="col-lg-10 mb-3">
         <div class="custom-file">
             <label for="image" class="form-label">
                 Add Image(s):
             </label>
-            <input class="form-control" type="file" name="image" id="image" multiple>
-            <p class="custom-file-label"></p>
+            <input class="form-control" type="file" name="image" id="new-camp-images" multiple>
+            <p class="custom-file-label">Maximum of 3 photos</p>
         </div>
     </div>
+    <% } %>
 
     <div class="col-lg-10 mb-3">
         <label for="">Select the image(s) you want to delete:</label>
@@ -72,7 +74,7 @@
     </div>
 
     <div class="col-md-10 mb-3">
-        <button class="btn btn-success async-btn" type="submit">
+        <button class="btn btn-success adds-images" type="submit">
             Save Changes
         </button>
     </div>
