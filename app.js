@@ -16,6 +16,8 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalPassport = require('passport-local');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 
 // express app
 const app = express();
@@ -24,7 +26,8 @@ const app = express();
 const User = require('./models/user');
 
 //import utilities
-const ExpressError = require('./utils/ExpressError.js')
+const ExpressError = require('./utils/ExpressError.js');
+const { scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls } = require('./utils/cspUrls.js');
 
 // import routes 
 const campgroundRoutes = require('./routes/campgrounds');
@@ -57,16 +60,44 @@ app.use(express.urlencoded({extended: true}));
 // method override for put / delete request
 app.use(methodOverride('_method'));
 
+// replace prohibited characters with _ for security
+app.use(mongoSanitize({ replaceWith: '_' }));
+
+// basic security
+app.use( helmet() );
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://res.cloudinary.com/kleandrav/", // own cloudinary account
+                "https://images.unsplash.com/" 
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
+
 // Morgan
 app.use(morgan('tiny'));
 
 // Express Session & Flash
 const sessionConfig = {
+    name: 'session',
     secret: 'yourdeepestdarkestsecret',
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure: true,
         // session expires in 15 days:
         expires: Date.now() + 1000 * 60 * 60 * 24 * 15, 
         maxAge: 1000 * 60 * 60 * 24 * 15
@@ -87,7 +118,9 @@ app.use( passport.session() ); // supports persistent login sessions
     passport.deserializeUser( User.deserializeUser() );
     
 app.use( (req, res, next) => {
+    console.log( req.query );
     res.locals.currentUser = req.user;
+    console.log(res.locals.currentUser);
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();

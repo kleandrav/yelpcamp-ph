@@ -1,9 +1,11 @@
 // import modules
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
+
 // import model
 const Campground = require('../models/campground.js');
 // import seed helpers
-const {descriptors, places} = require('./seeders.js');
+const {descriptors, places, imageUrls} = require('./seeders.js');
 const cities = require('./cities.js');
 
 // console.log(cities);
@@ -24,9 +26,10 @@ const seeder = arr => arr[Math.floor(Math.random() * arr.length)];
 const seedDB = async () => {
     // delete existing data
     await Campground.deleteMany({});
-    console.log('Deleted old data in campgrounds database');
+    console.log('Deleted old data in campgrounds database!');
+
     // seeding random camps
-    for (let i = 0; i < 200; i++)
+    for (let i = 0; i < 50; i++)
     {
         let rand = Math.floor(Math.random() * 164);
         const {city, lat, lng} = cities[rand];
@@ -35,34 +38,23 @@ const seedDB = async () => {
         // random price between 300 to 5000 pesos
         let price = 300 + Math.floor(Math.random() * 4701);
 
+        // random images
+        const randomImages = [];
+        for (let j = 0; j < 4; j++) {
+            randomImages.push({
+                url: seeder(imageUrls),
+                filename: 'Unsplash-' + uuidv4()
+            });
+        }
+        console.log(randomImages);
+
         let camp = new Campground({
             name: `${seeder(descriptors)} ${seeder(places)}`,
-            author: '6064e278b6c09a2b524f6ae9',
+            author: '6064e278b6c09a2b524f6ae9', // Own user _id
             price: price,
-            description: "With more than 7,000 islands consisting of rice paddies, volcanos, mega-metropolises, world-class surf spots, and endemic wildlife, the Philippines is one of the most dazzling and diverse countries in all of Asia.",
+            description: "With more than 7,000 islands consisting of rice paddies, volcanos, mega-metropolises, world-class surf spots, and endemic wildlife, the Philippines is one of the most dazzling and diverse countries in all of Asia. Not to mention, it’s home to some of the world’s best beaches, too. Philippines has garnered numerous titles related to tourism, namely, the traditional capital of the world’s festivities, the capital of the western Pacific, the centre of Hispanic Asia, the Pearl of the Orient Seas, center of the Coral Triangle, and the capital of fun. The country is also a biodiversity hotspot, having the world’s highest endemism rate for bird species, and one of the highest for mammals and flora. (travelope.in)",
             location: `${city}, ${province}`,
-            images: [
-                {
-                    url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617239898/YelpCampPh/tfb4ple84bw1txv2spy2.jpg',
-                    filename: 'YelpCampPh/tfb4ple84bw1txv2spy2'
-                },              
-                {
-                    url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617240001/YelpCampPh/zr25aigrbucdpvp9oghd.jpg',
-                    filename: 'YelpCampPh/zr25aigrbucdpvp9oghd'
-                },
-                {
-                    url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617240003/YelpCampPh/n2qzukkt3wh7u6iqlqn5.jpg',
-                    filename: 'YelpCampPh/n2qzukkt3wh7u6iqlqn5'
-                },
-                {
-                    url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617241775/YelpCampPh/k0jdcbb2fv1lfvgwfyhw.jpg',
-                    filename: 'YelpCampPh/k0jdcbb2fv1lfvgwfyhw'
-                },
-                {
-                    url: 'https://res.cloudinary.com/kleandrav/image/upload/v1617241778/YelpCampPh/fsitd6r1nsskq6qatrdy.jpg',
-                    filename: 'YelpCampPh/fsitd6r1nsskq6qatrdy'
-                }
-            ],
+            images: [ ...randomImages ],
             geometry: {
                 type: "Point",
                 coordinates: [lng, lat]
@@ -74,7 +66,3 @@ const seedDB = async () => {
 }
 
 seedDB().then( () => mongoose.connection.close() );
-
-
-// author: '6063d6119f35671b2ff801cf'
-// hedwig ~ hedwig@hogwarts.com ~ potter

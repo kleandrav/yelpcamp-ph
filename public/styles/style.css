@@ -27,8 +27,12 @@ a:hover
 {
     position: relative;
     padding: 0;
-    height: 100%;
+    height: 100%;  
     border: 2px solid transparent;
+}
+.delete-item img {
+    width: 200px;
+    height: auto;
 }
 .delete-item input
 {

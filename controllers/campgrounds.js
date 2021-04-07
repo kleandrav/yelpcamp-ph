@@ -18,8 +18,8 @@ module.exports.index = async (req, res) => {
     for (let camp of campgrounds)
     {
         if (camp.images.length) {
-            let x = Math.floor(Math.random() * camp.images.length);
-            camp.image = camp.images[x].url;
+            // let x = Math.floor(Math.random() * camp.images.length);
+            camp.image = camp.images[0].url;
         } else {
             camp.image = "";
         }
