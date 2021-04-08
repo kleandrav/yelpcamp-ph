@@ -258,7 +258,6 @@ module.exports.imageUrls = [
     'https://images.unsplash.com/photo-1597926616299-c049c838a431?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NzZ8fHBoaWxpcHBpbmVzfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
     'https://images.unsplash.com/photo-1591506578484-d496b18a6908?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
     'https://images.unsplash.com/photo-1579623879229-7da8d5bffc28?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80',
-    'https://images.unsplash.com/photo-1596263576925-d90d63691097?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1439&q=80',
     'https://images.unsplash.com/photo-1591506557489-e8ca407063e7?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OTN8fHBoaWxpcHBpbmVzfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
     'https://images.unsplash.com/photo-1611944596304-f5b4930e84f1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTE1fHxwaGlsaXBwaW5lc3xlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=500&q=60',
     'https://images.unsplash.com/photo-1605941674177-6e3e2da25937?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80',

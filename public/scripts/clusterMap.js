@@ -2,7 +2,7 @@ mapboxgl.accessToken = mbxToken;
 
 const map = new mapboxgl.Map({
     container: 'cluster-map',
-    style: 'mapbox://styles/mapbox/outdoors-v11',
+    style: 'mapbox://styles/mapbox/dark-v10',
     center: [121, 11],
     zoom: 4
 });
@@ -125,6 +125,12 @@ map.on('click', 'unclustered-point', function (e) {
         map.getCanvas().style.cursor = 'pointer';
     });
     map.on('mouseleave', 'clusters', function () {
+        map.getCanvas().style.cursor = '';
+    });
+    map.on('mouseenter', 'unclustered-point', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'unclustered-point', function () {
         map.getCanvas().style.cursor = '';
     });
 });

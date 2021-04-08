@@ -1,7 +1,8 @@
 <%- layout('layouts/boilerplate') %>
 
 <% if (currentPage === 1) { %>
-    <div id="cluster-map" class="mb-5"></div>
+    <div id="cluster-map-space"></div>
+    <div id="cluster-map"></div>
 <% } %>
 
 <div class="text-center">
@@ -15,7 +16,7 @@
 </div>
 
 <!-- Bootstrap5 Pagination  -->
-<nav aria-label="Page navigation" class="my-4">
+<nav aria-label="Page navigation" class="my-5">
   <ul class="pagination justify-content-center">
 
     <li class="page-item <%= (currentPage === 1) ? 'disabled' : '' %>">
@@ -42,7 +43,7 @@
 
 <section class="row d-flex justify-content-center">
 
-  <% for (let camp of campgrounds) { %>
+  <% for (let camp of campgrounds.slice(start, end) ) { %>
       <div class="card camp-card">
           <div class="row g-0">
             <div class="col-md-6 card-img-left">                      
@@ -72,7 +73,7 @@
 
 
 <!-- Bootstrap5 Pagination  -->
-<nav aria-label="Page navigation" class="my-4">
+<nav aria-label="Page navigation" class="my-5">
   <ul class="pagination justify-content-center">
 
     <li class="page-item <%= (currentPage === 1) ? 'disabled' : '' %>">

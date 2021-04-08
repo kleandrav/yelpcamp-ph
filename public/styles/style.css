@@ -6,10 +6,22 @@ a:hover
 {
     color:black;
 }
+
+/* flash alerts  */
+.flashes
+{
+  max-width: 500px;
+  min-width: 30vw;
+  padding: 10px;
+  margin: 60px auto;
+  margin-bottom: 0;
+}
 .alert
 {
     font-size: 0.9rem;
+    z-index: 4;
 }
+
 /* new & edit forms  */
 .custom-file-label
 {
@@ -75,7 +87,18 @@ nav .dropdown-item
 }
 #cluster-map
 {
+    position: absolute;
+    top: 57px;
+    left: 0;
     height: 70vh;
+    width: 99.5vw;
+}
+#cluster-map-space
+{
+    position: relative;
+    height: 70vh;
+    width: 100%;
+    /* background-color: honeydew; */
 }
 
 /* campgrounds/index  */

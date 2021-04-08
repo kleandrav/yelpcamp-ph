@@ -18,7 +18,7 @@ module.exports.index = async (req, res, next) => {
     {
         currentPage = 1;
         // get campgrounds from the database
-        req.session.campgrounds = await Campground.find({});
+        req.session.campgrounds = await Campground.find({}).limit(1000);
 
         // Initialize Pagination
         let len = (req.session.campgrounds).length;
@@ -36,9 +36,8 @@ module.exports.index = async (req, res, next) => {
     let end = currentPage * itemsPerPage;
     if (end > totalItems) end = totalItems;
 
-    const campgrounds = (req.session.campgrounds).slice(start, end);
-
-    res.render('campgrounds/', {campgrounds, totalPages, currentPage});
+    const campgrounds = (req.session.campgrounds);
+    res.render('campgrounds/', {campgrounds, totalPages, currentPage, start, end});
 };
 
 module.exports.search = async (req, res) => {    

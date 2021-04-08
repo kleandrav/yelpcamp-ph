@@ -25,11 +25,11 @@ const seeder = arr => arr[Math.floor(Math.random() * arr.length)];
 // seeding
 const seedDB = async () => {
     // delete existing data
-    await Campground.deleteMany({});
+    await Campground.deleteMany({ author: { $in: '6064e278b6c09a2b524f6ae9' } });
     console.log('Deleted old data in campgrounds database!');
 
     // seeding random camps
-    for (let i = 0; i < 100; i++)
+    for (let i = 0; i < 250; i++)
     {
         let rand = Math.floor(Math.random() * 164);
         const {city, lat, lng} = cities[rand];
