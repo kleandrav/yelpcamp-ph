@@ -25,6 +25,7 @@ if (addImageBtn) {
             fileLabel.classList.add('invalid-text');
             fileLabel.innerText = "Maximum of 3 photos only.";
         } 
+        else loader.style.display = "flex";
     }
 }
 

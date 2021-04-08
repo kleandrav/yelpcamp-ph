@@ -1,10 +1,7 @@
-// Controllers for Campground Routes
-
 const Campground = require('../models/campground');
+const ExpressError = require('../utils/ExpressError');
 const { cloudinary } = require("../cloudinary");
 const shuffle = require('array-shuffle');
-
-const sanitizeHtml = require('sanitize-html');
 
 // Geocoding
 // To create a service client, import the service's factory function from '@mapbox/mapbox-sdk/services/{service}' and provide it with your access token.
@@ -12,21 +9,47 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mbxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mbxToken });
 
-module.exports.index = async (req, res) => {
-    console.log('from the controller:', req.query);
-    const campgrounds = shuffle( await Campground.find({}) );
-    res.render('campgrounds/index', {campgrounds});
+module.exports.index = async (req, res, next) => {
+    let currentPage = Number(req.query.page);
+    console.log({ currentPage });
+
+    if ( !currentPage || currentPage < 1 )
+    // if client req /index w/o ?page 
+    {
+        currentPage = 1;
+        // get campgrounds from the database
+        req.session.campgrounds = await Campground.find({});
+
+        // Initialize Pagination
+        let len = (req.session.campgrounds).length;
+        req.session.pagination = {
+            totalItems: len, // total # of campgrounds
+            itemsPerPage: 20, 
+            totalPages: Math.ceil(len / 20) // total # of pages
+        }
+    }
+
+    if (!req.session.pagination || !req.session.campgrounds) res.redirect('campgrounds/');
+
+    const {itemsPerPage, totalItems, totalPages} = req.session.pagination;
+    let start = (currentPage - 1) * itemsPerPage;
+    let end = currentPage * itemsPerPage;
+    if (end > totalItems) end = totalItems;
+
+    const campgrounds = (req.session.campgrounds).slice(start, end);
+
+    res.render('campgrounds/', {campgrounds, totalPages, currentPage});
 };
 
-module.exports.search = async (req, res) => {
-    const searchTerm = (req.query.q).match(/\w+/g).join(' ');
+module.exports.search = async (req, res) => {    
+    const searchTerm = req.query.q ? (req.query.q).match(/\w+/g).join(' ') : "";
     console.log(searchTerm);
 
-    const campgrounds = await Campground.find({
+    const campgrounds = shuffle( await Campground.find({
         $text: {
             $search: searchTerm
         }
-    });
+    }));
 
     res.render('campgrounds/search', {searchTerm , campgrounds});
 };

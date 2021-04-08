@@ -1,11 +1,44 @@
 <%- layout('layouts/boilerplate') %>
 
-<div id="cluster-map"></div>
+<% if (currentPage === 1) { %>
+    <div id="cluster-map" class="mb-5"></div>
+<% } %>
 
-<div class="my-5 text-center">
+<div class="text-center">
   <h1>All Campgrounds</h1>
-  <p><a href="/campgrounds/new">Add a New Campground</a></p>
+  <p>
+    <% if (currentPage != 1) { %>
+        <a href="/campgrounds?page=1">Go to Map</a> | 
+    <% } %>
+    <a href="/campgrounds/new">Add a New Campground</a>
+  </p>
 </div>
+
+<!-- Bootstrap5 Pagination  -->
+<nav aria-label="Page navigation" class="my-4">
+  <ul class="pagination justify-content-center">
+
+    <li class="page-item <%= (currentPage === 1) ? 'disabled' : '' %>">
+      <a class="page-link" href="/campgrounds?page=<%= currentPage - 1 %>" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    <% for (let i = 1; i <= totalPages; i++) { %>      
+      <% if (i === currentPage) { %>
+          <li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
+      <% } else { %>
+          <li class="page-item"><a class="page-link" href="/campgrounds?page=<%= i %>"><%= i %></a></li>
+    <% }} %>
+    
+    <li class="page-item <%= (currentPage >= totalPages) ? 'disabled' : '' %> ">
+      <a class="page-link" 
+          href="/campgrounds?page=<%= currentPage + 1 %>" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 
 <section class="row d-flex justify-content-center">
 
@@ -23,7 +56,7 @@
                 </h5>
                 <p class="card-text">
                   <small>
-                    <%= camp.description.substring(0, 150) %>
+                    <%= camp.description.substring(0, 150) %>...
                   </small>
                 </p>     
                 <p class="card-text text-muted">
@@ -36,6 +69,34 @@
   <% } %>
 
 </section>
+
+
+<!-- Bootstrap5 Pagination  -->
+<nav aria-label="Page navigation" class="my-4">
+  <ul class="pagination justify-content-center">
+
+    <li class="page-item <%= (currentPage === 1) ? 'disabled' : '' %>">
+      <a class="page-link" href="/campgrounds?page=<%= currentPage - 1 %>" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    <% for (let i = 1; i <= totalPages; i++) { %>      
+      <% if (i === currentPage) { %>
+          <li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
+      <% } else { %>
+          <li class="page-item"><a class="page-link" href="/campgrounds?page=<%= i %>"><%= i %></a></li>
+    <% }} %>
+    
+    <li class="page-item <%= (currentPage >= totalPages) ? 'disabled' : '' %> ">
+      <a class="page-link" 
+          href="/campgrounds?page=<%= currentPage + 1 %>" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
 
 
 <script>

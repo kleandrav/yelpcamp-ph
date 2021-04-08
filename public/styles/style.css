@@ -97,7 +97,7 @@ nav .dropdown-item
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #0008;
+    background-color: #fff9;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -108,14 +108,14 @@ nav .dropdown-item
     width: 30px;
     height: 30px;
     position: relative;
-    border: 4px solid #Fff;
+    border: 4px solid #000;
     animation: loader 2s infinite ease;
 }
 .loader-inner {
     vertical-align: top;
     display: inline-block;
     width: 100%;
-    background-color: #fff;
+    background-color: #000;
     animation: loader-inner 2s infinite ease-in;
 }
 @keyframes loader {
@@ -190,4 +190,16 @@ footer a:hover
 {
   height: 45vh;
   background-color: whitesmoke;
+}
+
+/* pagination  */
+.page-link
+{
+  color:#198754;
+}
+.page-item.active .page-link
+{
+  color: white;
+  background-color: #198754;
+  border-color: #198754;
 }
