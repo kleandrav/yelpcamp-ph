@@ -4,9 +4,6 @@
 
     bsCustomFileInput.init();
 
-    // mine 
-    const loadSquare = document.querySelector('.loader-wrapper');
-
     // console.log('running a script from bootstrap 5!');
 
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -22,7 +19,6 @@
                     event.preventDefault()
                     event.stopPropagation()
                 } 
-                else loadSquare.style.display = "flex";
                 
                 console.log('VALIDATED FORM!');
                 form.classList.add('was-validated');

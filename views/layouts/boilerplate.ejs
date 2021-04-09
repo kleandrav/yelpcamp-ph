@@ -59,6 +59,12 @@
             $(".loader-wrapper").fadeOut("slow");
         });
     </script>
+    <script>
+        const loadingSquare = document.querySelector('.loader-wrapper');
+        document.body.onbeforeunload = (event) => {
+            loadingSquare.style.display = "flex";
+        };
+    </script>
 </body>
 
 </html>

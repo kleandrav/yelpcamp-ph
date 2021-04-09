@@ -42,8 +42,6 @@
         <footer class="mt-auto text-white-50">
             <p>&copy; 2021 </p>
         </footer>
-
-
     </div> 
 
     <div class="loader-wrapper">
@@ -62,12 +60,9 @@
             $(".loader-wrapper").fadeOut("slow");
         });
     </script>
-
     <script>
-        const viewBtn = document.getElementById('view-btn');
         const loader = document.querySelector('.loader-wrapper');
-
-        viewBtn.onclick = (event) => {
+        document.body.onbeforeunload = (event) => {
             loader.style.display = "flex";
         };
     </script>
