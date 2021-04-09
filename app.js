@@ -40,8 +40,8 @@ const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 
 // connect mongoose to mongodb
-// const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
-const dbUrl = 'mongodb://localhost:27017/yelp-camp'
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+// const dbUrl = 'mongodb://localhost:27017/yelp-camp'
 mongoose.connect(dbUrl, {
         useNewUrlParser: true,
         useCreateIndex: true,
