@@ -5,7 +5,7 @@
     bsCustomFileInput.init();
 
     // mine 
-    // const loader = document.querySelector('.loader-wrapper');
+    const loadSquare = document.querySelector('.loader-wrapper');
 
     // console.log('running a script from bootstrap 5!');
 
@@ -22,7 +22,7 @@
                     event.preventDefault()
                     event.stopPropagation()
                 } 
-                else loader.style.display = "flex";
+                else loadSquare.style.display = "flex";
                 
                 console.log('VALIDATED FORM!');
                 form.classList.add('was-validated');

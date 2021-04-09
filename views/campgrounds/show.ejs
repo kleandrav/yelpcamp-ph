@@ -67,12 +67,12 @@
     <div class="col-lg-6">
         <div id="map"></div>
 
-        <!-- <% if (currentUser) { %> -->
+        
         <h4 class="mt-5">Leave a Review</h4>
+
         <form action="/campgrounds/<%= camp._id %>/reviews" method="POST" class="mb-5 validate-form" novalidate>
             <div>
-                <fieldset class="starability-growRotate">
-                    <!-- <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." /> -->
+                <fieldset class="starability-growRotate"> 
                     <input type="radio" id="first-rate1" name="review[rating]" value="1" checked />
                     <label for="first-rate1" title="Terrible">1 star</label>
                     <input type="radio" id="first-rate2" name="review[rating]" value="2" />
@@ -85,8 +85,10 @@
                     <label for="first-rate5" title="Amazing">5 stars</label>
                 </fieldset>
             </div>
-            <div class="mb-3">
-                <!-- <label for="review" class="form-label">Review</label> -->
+
+    <% if (currentUser) { %>
+
+            <div class="mb-3"> 
                 <textarea name="review[body]" id="body" cols="30" rows="3" class="form-control"
                     placeholder="Enter your review here..." required></textarea>
                 <div class="valid-feedback">Looks good!</div>
@@ -95,17 +97,18 @@
                 </div>
             </div>
             <button class="btn btn-success async-btn">Submit Review</button>
-        </form>
-<!--         
-        <% } else { %>
-        <div class="my-5 text-muted text-center">
+
+    <% } else { %> 
+        <div class="mb-3 text-muted"> 
             <small>
-                Please <a href="/login" target="_blank">Log in</a> or
-                <a href="/register" target="_blank">Sign up</a>
+            Please <a href="/login" target="_blank">Log in</a> or 
+            <a href="/register" target="_blank">Sign up</a>
                 to leave a review for this campground.
             </small>
         </div>
-        <% } %> -->
+    <% } %>
+
+        </form>
 
         <% if (camp.reviews.length) { %>
         <h3 class="pt-4 pb-2">Reviews</h3>

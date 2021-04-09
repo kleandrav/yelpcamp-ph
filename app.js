@@ -142,7 +142,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     // console.log( 'From main app:', req.query );
     res.locals.currentUser = req.user;
-    console.log( res.locals.currentUser );
+    console.log("User: ", res.locals.currentUser );
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
