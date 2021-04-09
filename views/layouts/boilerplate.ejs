@@ -25,6 +25,9 @@
 </head>
 
 <body class="d-flex flex-column vh-100">
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
 
     <%- include('../partials/navbar.ejs'); %>
     <%- include('../partials/flash.ejs') %>
@@ -33,11 +36,7 @@
         <%- body %>
     </main>
 
-    <%- include('../partials/footer.ejs'); %>
-
-    <div class="loader-wrapper">
-        <span class="loader"><span class="loader-inner"></span></span>
-    </div>
+    <%- include('../partials/footer.ejs'); %>    
 
     <!-- Bootstrap 5  -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
@@ -61,7 +60,7 @@
     </script>
     <script>
         const loadingSquare = document.querySelector('.loader-wrapper');
-        document.body.onbeforeunload = (event) => {
+        document.body.onbeforeunload = () => {
             loadingSquare.style.display = "flex";
         };
     </script>
