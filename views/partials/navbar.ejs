@@ -40,8 +40,7 @@
                     <a class="nav-link" href="/register">Register</a>
                 <% } else { %>
                     <span class="navbar-text text-success">
-                        Welcome, <%= currentUser.username.slice(0,1).toUpperCase()
-                          + currentUser.username.slice(1) %>!
+                        Welcome, <%= currentUser.capitalized %>!
                     </span>
                     <a class="nav-link" href="/logout">Log Out</a>
                 <% } %>

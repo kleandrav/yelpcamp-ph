@@ -4,7 +4,10 @@
 
     bsCustomFileInput.init();
 
-    console.log('running a script from bootstrap 5!');
+    // mine 
+    // const loader = document.querySelector('.loader-wrapper');
+
+    // console.log('running a script from bootstrap 5!');
 
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     const forms = document.querySelectorAll('.validate-form');
@@ -18,9 +21,13 @@
                     console.log('STOP THE FORM!');
                     event.preventDefault()
                     event.stopPropagation()
-                }
+                } 
+                else loader.style.display = "flex";
+                
                 console.log('VALIDATED FORM!');
                 form.classList.add('was-validated');
             }, false)
         })
+
+
 })()
