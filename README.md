@@ -3,4 +3,3 @@ A Filipino version of YelpCamp - from The Web Developer Bootcamp 2021 by Colt St
 
 Deployed on Heroku:
 https://yelpcamp-ph.herokuapp.com/
-(It's sometimes very slow on heroku, be patient...)
