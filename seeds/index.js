@@ -17,7 +17,8 @@ const cities = require('./cities.js');
 // console.log(cities);
 
 // connect mongoose to database
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+// const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = "";
 mongoose.connect(dbUrl, {
         useNewUrlParser: true,
         useCreateIndex: true,
